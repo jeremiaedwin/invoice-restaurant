@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000000001000000
-UnitCount=7
+UnitCount=4
 
 [VersionInfo]
 Major=1
@@ -51,25 +51,16 @@ AutoIncBuildNr=0
 SyncProduct=1
 
 [Unit1]
-FileName=HI.txt
-Folder=
-Compile=0
-Link=0
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit2]
 FileName=login.cpp
-CompileCpp=1
 Folder=
 Compile=1
 Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
+CompileCpp=1
 
-[Unit3]
+[Unit2]
 FileName=login.h
 CompileCpp=1
 Folder=
@@ -79,14 +70,25 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit4]
+[Unit3]
 FileName=login.h.gch
+CompileCpp=1
 Folder=
 Compile=0
 Link=0
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
+
+[Unit4]
+FileName=main.cpp
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+CompileCpp=1
 
 [Unit5]
 FileName=main.cpp
