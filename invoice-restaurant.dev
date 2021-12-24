@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000000000000001000000
-UnitCount=6
+UnitCount=8
 
 [VersionInfo]
 Major=1
@@ -111,10 +111,21 @@ BuildCmd=
 CompileCpp=1
 
 [Unit7]
-FileName=test.txt
+FileName=menu.cpp
 Folder=
-Compile=0
-Link=0
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+CompileCpp=1
+
+[Unit8]
+FileName=menu.h
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
 Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
