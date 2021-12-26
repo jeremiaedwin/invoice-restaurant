@@ -7,11 +7,30 @@
 
 
 
-void indexLogin(){
-	printf("");
-	printf("");
-	printf("");
-	printf("");		
+void indexLogin(User dt){
+	int opsi;
+	for(;;){
+	if(dt.level <3){
+		return;
+	}
+	system("CLS");
+	printf("1. Create Account\n");
+	printf("2. List Account\n");
+	printf("Press any key beside 1 or 2 to get back!\n");
+	printf("Choose : ");
+	scanf("%d",&opsi);
+	
+	switch(opsi){
+		case 1 :
+			regist();
+			break;
+		case 2 :
+			listUser();
+			break;
+		default :
+			return;
+	}
+	}
 	
 }
 void regist(){
@@ -62,7 +81,7 @@ void login(User *dt){
 	while((fread(&dt1,sizeof(dt1),line,f_user))==line){
 		if((strcmp(dt1.username,tempU))==0 && (strcmp(dt1.password,tempP)) == 0){
 			userFind = false;
-			printf("Selamat Datang %s!",dt1.nama);
+			printf("Selamat Datang %s!\n",dt1.nama);
 			*dt = input(dt1);
 		}
 	}
@@ -141,8 +160,8 @@ void listUser(){
 		}
 	
 	fclose(f_user);
-	if(opsi == 'N'|| opsi == 'n'){
-
+	if(opsi == 'Y'|| opsi == 'y'){
+		return;
 	}
 }
 

@@ -9,7 +9,7 @@ typedef struct{
 	int level;
 }User;
 
-void indexLogin();
+void indexLogin(User dt);
 void regist();
 void login(User *dt);
 void searchUser();
