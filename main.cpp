@@ -6,7 +6,10 @@
 #include "kategori.h"
 
 int main(){
-
+	User dt;
+//	regist();
+	login(&dt);
+	listUser();
 	int opsi;
 	
 		system("CLS");
