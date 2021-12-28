@@ -4,40 +4,111 @@
 #include <ctype.h>
 #include <conio.h>
 #include "menu.h"
+#include "login.h"
 
-void indexMenu(){
+void indexMenu(User dt){
 		
 	int option;
 	for(;;){
-		
-		system("CLS");
-		printf("1. Create Menu\n");
-		printf("2. Add Menu\n");
-		printf("3. Display Menu\n");
-		printf("4. Update Menu\n");
-		printf("5. Delete Menu\n");
-		scanf("%d",&option);
 	
-		switch(option){
-			case 1:
-				createMenu();
-				break;
-			case 2:
-				addMenu();
-				break;
-			case 3:
-				viewMenu();
-				break;	
-			case 4:
-				update();
-				break;
-			case 5:
-				deleteMenu();
-				break;
-			default :
-				exit(1);
+	switch(dt.level){
+		case 1 :
+			system("CLS");
+			printf("1.Display Menu\n");
+			printf("2. Update Menu\n");
+			break;
+		case 2 :
+			system("CLS");
+			printf("1. Create Menu\n");
+			printf("2. Add Menu\n");
+			printf("3. Display Menu\n");
+			printf("4. Update Menu\n");
+			printf("5. Delete Menu\n");
+			printf("Pilih : ");
+			scanf("%d",&option);
+			switch(option){
+				case 1:
+					createMenu();
+					break;
+				case 2:
+					addMenu();
+					break;
+				case 3:
+					viewMenu();
+					break;	
+				case 4:
+					update();
+					break;
+				case 5:
+					deleteMenu();
+					break;
+				default :
+					return;
+		}
+			break;
+		
+		case 3 :
+			system("CLS");
+			printf("1. Create Menu\n");
+			printf("2. Add Menu\n");
+			printf("3. Display Menu\n");
+			printf("4. Update Menu\n");
+			printf("5. Delete Menu\n");
+			printf("Pilih : ");
+			scanf("%d",&option);
+			switch(option){
+				case 1:
+					createMenu();
+					break;
+				case 2:
+					addMenu();
+					break;
+				case 3:
+					viewMenu();
+					break;	
+				case 4:
+					update();
+					break;
+				case 5:
+					deleteMenu();
+					break;
+				default :
+					return;
+			break;
 	}
-}
+	}
+	}
+	
+//	for(;;){
+//		
+//		system("CLS");
+//		printf("1. Create Menu\n");
+//		printf("2. Add Menu\n");
+//		printf("3. Display Menu\n");
+//		printf("4. Update Menu\n");
+//		printf("5. Delete Menu\n");
+//		scanf("%d",&option);
+//	
+//		switch(option){
+//			case 1:
+//				createMenu();
+//				break;
+//			case 2:
+//				addMenu();
+//				break;
+//			case 3:
+//				viewMenu();
+//				break;	
+//			case 4:
+//				update();
+//				break;
+//			case 5:
+//				deleteMenu();
+//				break;
+//			default :
+//				exit(1);
+//	}
+//}
 
 }
 
@@ -55,7 +126,7 @@ void createMenu(){
 	option = toupper(getch());
 	
 	if(option == 'N' || option == 'n'){
-		indexMenu();
+		return;
 	}
 	if((f_menu = fopen("dataMenu.DAT","wb"))==NULL){
 		printf("Gagal membuka file!");
@@ -179,7 +250,7 @@ void viewMenu(){
 	
 	fclose(f_menu);
 	if(opsi == 'N'|| opsi == 'n'){
-		indexMenu();
+		return;
 	}
 }
 void deleteMenu(){
