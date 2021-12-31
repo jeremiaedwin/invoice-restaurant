@@ -10,7 +10,7 @@
 //#include "main.cpp"
 using namespace std;
 
-void transaksiIndex(){
+void transaksiIndex(User dt){
 
 	system("cls");
 	int pilih = 0;
@@ -27,7 +27,7 @@ void transaksiIndex(){
 		{
 			case 1: 
 			{
-				inputTransaksi(kode_kasir1);
+				inputTransaksi(dt);
 				break;
 			}
 			case 2: 
@@ -41,13 +41,13 @@ void transaksiIndex(){
 //				search();
 				break;
 			}
-			default : { transaksiIndex();}
+			default : { return;}
 		}
 	}
 	int n = 1;
 }
 
-void inputTransaksi(char kode_kasir[6]){
+void inputTransaksi(User dt){
 	Pembayaran dt_pembayaran;
 	time_t date_now;
 	FILE *f_transaksi;
@@ -62,7 +62,7 @@ void inputTransaksi(char kode_kasir[6]){
 	scanf("%s", dt_pembayaran.kode_transaksi);
 	fflush(stdin);
 	
-	strcpy(dt_pembayaran.kode_user, kode_kasir);	
+	strcpy(dt_pembayaran.kode_user, dt.user_id);	
 	time(&date_now);
 	strcpy(dt_pembayaran.tanggal_pembelian,ctime(&date_now));
 	
@@ -71,7 +71,7 @@ void inputTransaksi(char kode_kasir[6]){
 		printf("Masukkan Kode Menu : ");
 		scanf("%s", kode_menu);
 		fflush(stdin);
-		dt_pembayaran.dt_menu[i] = searchMenu(kode_menu);
+		dt_pembayaran.dt_menu[i] = searchMenu(kode_menu,dt);
 		
 		fflush(stdin);
 		printf("Masukkan kuantitas : ");
@@ -104,10 +104,10 @@ void inputTransaksi(char kode_kasir[6]){
 	fwrite(&dt_pembayaran, sizeof(dt_pembayaran), 1, f_transaksi);
 	fclose(f_transaksi);
 	printf("Transaksi berhasil dibuat\n");
-	transaksiIndex();
+	return;
 }
 
-Keranjang searchMenu(char kode_menu[6]){
+Keranjang searchMenu(char kode_menu[6],User dt){
 	FILE *f_menu;
 	menu1 data_menu;
 	Keranjang dt_keranjang;
@@ -135,9 +135,9 @@ Keranjang searchMenu(char kode_menu[6]){
 			char again;
 			scanf("%s", &again);
 			if(again == 'Y' || again == 'y'){
-				inputTransaksi(kode_kasir1);
+				inputTransaksi(dt);
 			}else{
-				transaksiIndex();	
+				transaksiIndex(dt);	
 			}
 	}
 	fclose(f_menu);
@@ -149,7 +149,7 @@ int validateQty(int qty)
 	
 }
 
-void validateKode(Pembayaran dt){
+void validateKode(Pembayaran dt,User dt_user){
 	FILE *f_transaksi;
 	Pembayaran dt_pembayaran;
 	if ((f_transaksi=fopen("f_transaksi.DAT", "rb"))==NULL)
@@ -161,7 +161,7 @@ void validateKode(Pembayaran dt){
 	bool find = false;
 	while(fread(&dt_pembayaran, sizeof(dt_pembayaran),1, f_transaksi)){
 		if(strcmp(dt.kode_transaksi,dt_pembayaran.kode_transaksi)==0){
-			inputTransaksi(kode_kasir1);
+			inputTransaksi(dt_user);
 			dt=Pembayaran();
 			printf("Kode transaksi sudah ada!\n");
 		}

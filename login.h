@@ -7,7 +7,7 @@ typedef struct{
 	char username[21];
 	char password[9];
 	char nama[31];
-	time_t user_id;
+	char user_id[12];
 	int level;
 }User;
 

@@ -7,16 +7,11 @@
 #include "transaksi.h"
 //char kode_kasir[25] = "KSR01";
 int main(){
-<<<<<<< HEAD
-=======
 // Deklarasi variabel
 	int opsi;
->>>>>>> f9798e939b01af01a0b28a7105867a7cfcb003a7
 	User dt;
 	regist();
 	login(&dt);
-	listUser();
-	int opsi;
 	
 //	regist();
 //Login user
@@ -37,14 +32,10 @@ int main(){
 						indexMenu(dt);
 						break;
 					case 2 :
-<<<<<<< HEAD
-						transaksiIndex();
-=======
-						indexKategori(dt);
+						transaksiIndex(dt);
+//						indexKategori(dt);
 						break;
 					case 3 :
-						
->>>>>>> f9798e939b01af01a0b28a7105867a7cfcb003a7
 						break;
 				}
 				break;
@@ -61,14 +52,15 @@ int main(){
 						indexMenu(dt);
 						break;
 					case 2 :
-						indexKategori(dt);
+//						indexKategori(dt);
 						break;
 					case 3 :
 //						indexTransaksi(dt);
 						break;
 					case 4 :
 //						indexLaporan(dt);
-				}
+						break;
+					}
 				break;
 			case 3 :
 				printf("\n1. Menu");

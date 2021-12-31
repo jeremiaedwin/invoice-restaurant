@@ -1,10 +1,11 @@
 #ifndef transaksi_H
 #define transaksi_H
-#include "transaksi.h"
+#include "login.h"
 
 int size=0;
 
-char kode_kasir1[25] = "KSR01"; 
+
+//char kode_kasir1[25] = "KSR01"; 
 typedef struct{
 	char kMenu[5];
 	char nMenu[51];
@@ -28,10 +29,10 @@ typedef struct{
 	char kMenu[5];
 }menu1;
 
-void transaksiIndex();
+void transaksiIndex(User dt);
 void viewMenu();
-Keranjang searchMenu(char kodeMenu[6]);
-void inputTransaksi(char kode_kasir[6]);
+Keranjang searchMenu(char kodeMenu[6],User dt);
+void inputTransaksi(User dt);
 void hitungHarga(Pembayaran dt, int *total, int *sum, int n);
 void viewTransaksi();
 int validateQty(int qty);
