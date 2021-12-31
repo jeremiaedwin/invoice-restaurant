@@ -16,6 +16,18 @@ void indexMenu(User dt){
 				system("CLS");
 				printf("1.Display Menu\n");
 				printf("2. Update Menu\n");
+				scanf("%d",&option);
+				switch(option){
+					case 1:
+						viewMenu();
+						break;
+					case 2:
+						update();
+						break;
+				
+					default :
+						return;
+					}	
 				break;
 			case 2 :
 				system("CLS");
@@ -78,45 +90,42 @@ void indexMenu(User dt){
 				}
 			}
 		}
-<<<<<<< HEAD
-			break;
-		
-		case 3 :
-			system("CLS");
-			printf("1. Create Menu\n");
-			printf("2. Add Menu\n");
-			printf("3. Display Menu\n");
-			printf("4. Update Menu\n");
-			printf("5. Delete Menu\n");
-			printf("Pilih : ");
-			scanf("%d",&option);
-			switch(option){
-				case 1:
-					createMenu();
-					break;
-				case 2:
-					addMenu();
-					break;
-				case 3:
-					viewMenu();
-					break;	
-				case 4:
-					update();
-					break;
-				case 5:
-					deleteMenu();
-					break;
-				default :
-					return;
-			break;
-			}
-		}
-	}
-	
-=======
->>>>>>> f9798e939b01af01a0b28a7105867a7cfcb003a7
 
-}
+//			break;
+		
+//		case 3 :
+//			system("CLS");
+//			printf("1. Create Menu\n");
+//			printf("2. Add Menu\n");
+//			printf("3. Display Menu\n");
+//			printf("4. Update Menu\n");
+//			printf("5. Delete Menu\n");
+//			printf("Pilih : ");
+//			scanf("%d",&option);
+//			switch(option){
+//				case 1:
+//					createMenu();
+//					break;
+//				case 2:
+//					addMenu();
+//					break;
+//				case 3:
+//					viewMenu();
+//					break;	
+//				case 4:
+//					update();
+//					break;
+//				case 5:
+//					deleteMenu();
+//					break;
+//				default :
+//					return;
+//			break;
+//			}
+//		}
+	}
+
+
 
 void createMenu(){
 	
@@ -148,12 +157,14 @@ void createMenu(){
 		printf("Input Harga : ");
 		scanf("%d",&m.hMenu);
 		fflush(stdin);
-		printf("Input Stock : ");
+		printf("Input Status (1 = Tersedia/0 = Tidak Tersedia) : ");
 		scanf("%d",&m.sMenu);
 		fflush(stdin);
 		printf("Input Kode Menu : ");
 		scanf("%s",&m.kMenu);
-
+		if(m.sMenu>1 && m.sMenu<0){
+			break;
+		}
 		//Save user input kedalam file
 		fwrite(&m,sizeof(m),1,f_menu);		
 		printf("Input File again ?(Y/N)");
@@ -187,11 +198,14 @@ void addMenu(){
 		printf("Input Harga : ");
 		scanf("%d",&m.hMenu);
 		fflush(stdin);
-		printf("Input Stock : ");
+		printf("Input Status (1 = Tersedia/0 = Tidak Tersedia) : ");
 		scanf("%d",&m.sMenu);
 		fflush(stdin);
 		printf("Input Kode Menu : ");
 		scanf("%4s",&m.kMenu);
+		if(m.sMenu>1 && m.sMenu<0){
+			break;
+		}
 
 		//menambah user input kedalam file
 		fwrite(&m,sizeof(m),1,f_menu);		
@@ -223,7 +237,7 @@ void viewMenu(){
 	
 	count = 1;
 	//Display file ke layar
-	printf("No  Menu          Price   Stock  \n") ;
+	printf("No  Menu          Price       Status  \n") ;
 	while ((fread(&m,sizeof(m),line,f_menu)) == line){
 		k = 12;
 		i = 0;
@@ -235,7 +249,7 @@ void viewMenu(){
 			printf(" ");
 			i++;
 		}
-		printf("| %d",m.hMenu);
+		printf("| Rp. %d",m.hMenu);
 		sprintf(tempH,"%d",m.hMenu);
 		length = strlen(tempH);
 		k = 6;
@@ -245,7 +259,12 @@ void viewMenu(){
 			printf(" ");
 			i++;
 		}
-		printf("| %d\n",m.sMenu);
+		if(m.sMenu == 1){
+			printf("| Tersedia       |\n");	
+		}else {
+			printf("| Tidak tersedia |\n");
+		}
+//		printf("| %d\n",m.sMenu);
 		count++;
 	}
 	for(;;){
@@ -334,7 +353,7 @@ void update(){
 	printf("Data apa yang akan diganti ?\n");
 	printf("1. Nama Menu\n");
 	printf("2. Harga Menu\n");
-	printf("3. Stock Menu\n");
+	printf("3. Status Menu\n");
 	printf("4. Semua\n");
 	scanf("%d",&pilihan);
 	fflush(stdin);
@@ -359,7 +378,7 @@ void update(){
 			break;
 			
 		case 3 :
-			printf("Input Stock Menu : ");
+			printf("Input Status Menu (1 = Tersedia/0 = Tidak Tersedia) : ");
 			scanf("%d",&m2.sMenu);
 			fflush(stdin);
 			strcpy(m2.nMenu,m1.nMenu);

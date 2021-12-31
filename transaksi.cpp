@@ -36,11 +36,6 @@ void transaksiIndex(User dt){
 				break;
 			}
 			
-			case 3: 
-			{
-//				search();
-				break;
-			}
 			default : { return;}
 		}
 	}
@@ -52,20 +47,20 @@ void inputTransaksi(User dt){
 	time_t date_now;
 	FILE *f_transaksi;
 	int i=0;
-	size_t size=1;
 	char kode_menu[6];
 	char again;	
 	int sumHarga=0;
+	int kuantitas;
 
 	printf("Masukkan Kode Transaksi: ");
 	fflush(stdin);
 	scanf("%s", dt_pembayaran.kode_transaksi);
 	fflush(stdin);
 	
-	strcpy(dt_pembayaran.kode_user, dt.user_id);	
+	strcpy(dt_pembayaran.kode_user, dt.user_id);
 	time(&date_now);
 	strcpy(dt_pembayaran.tanggal_pembelian,ctime(&date_now));
-	
+
 	do{
 		fflush(stdin);
 		printf("Masukkan Kode Menu : ");
@@ -76,7 +71,8 @@ void inputTransaksi(User dt){
 		fflush(stdin);
 		printf("Masukkan kuantitas : ");
 		scanf("%d", &dt_pembayaran.dt_menu[i].qty);
-//		kuantitas = dt_pembayaran.dt_menu[i].qty;
+		kuantitas = dt_pembayaran.dt_menu[i].qty;
+//		validateQty(kuantitas, kode_menu);
 		fflush(stdin);
 		
 		fflush(stdin);
@@ -95,7 +91,16 @@ void inputTransaksi(User dt){
 	printf("Total = %d", totHarga);
 	dt_pembayaran.total_harga = totHarga;
 	
+	printf("\nUang masuk : ");
+	scanf("%d", &dt_pembayaran.uangMasuk);
 	
+	if(dt_pembayaran.total_harga<=dt_pembayaran.uangMasuk){
+		dt_pembayaran.kembalian = dt_pembayaran.uangMasuk-dt_pembayaran.total_harga;
+	}else{
+		dt_pembayaran.kembalian=0;
+	}
+	
+	printf("\nUang kembalian : %d", dt_pembayaran.kembalian);
 
 	if((f_transaksi=fopen("f_transaksi.DAT", "ab"))==NULL){
 			printf ("File tidak dapat dibuka\n"); 
@@ -144,10 +149,32 @@ Keranjang searchMenu(char kode_menu[6],User dt){
 	
 }
 
-int validateQty(int qty)
-{
-	
-}
+//void validateQty(int qty, char kode_menu[6]){
+//	FILE *f_menu;
+//	FILE *f_menu2;
+//	menu1 data_menu;
+//	menu1 data_menu2;
+//	Keranjang dt_keranjang;
+//	Pembayaran dt_pembayaran;
+//	int count;
+//	if ((f_menu=fopen("dataMenu.DAT", "wb"))==NULL)
+//	{
+//		printf ("File tidak dapat dibuka\n"); 
+//		exit(1);
+//	}
+//	int i = 1;
+//	bool find = false;
+//	int line=1;
+//	while(fread(&data_menu, sizeof(data_menu),1, f_menu)){
+//		if(strcmp(kode_menu,data_menu.kMenu)==0){
+//			if(qty <= data_menu.sMenu){
+//				data_menu.sMenu = data_menu.sMenu-qty;
+//				fwrite(&data_menu, sizeof(data_menu),1,f_menu);
+//				fclose(f_menu);
+//				}	
+//			}
+//		}
+//}
 
 void validateKode(Pembayaran dt,User dt_user){
 	FILE *f_transaksi;
@@ -204,9 +231,11 @@ void viewTransaksi(){
 		int a=0;
 		printf("========================================================\n");
 		printf("Kode Transaksi    : %s \n", dt_pembayaran.kode_transaksi);
+		printf("Tanggal Pembelian : %s \n", dt_pembayaran.tanggal_pembelian);
 		printf("Kode Kasir        : %s \n", dt_pembayaran.kode_user);
 		printf("Total Harga       : %d \n", dt_pembayaran.total_harga);
-		printf("Tanggal Pembelian : %s \n", dt_pembayaran.tanggal_pembelian);
+		printf("Uang Masuk        : %d \n", dt_pembayaran.uangMasuk);
+		printf("Uang Kembalian    : %d \n", dt_pembayaran.kembalian);
 		printf("---------------------------------------------------------\n");
 		printf("|%-10s|%-20s|%-12s|%-10s|\n", "Kode Menu" ,"Nama Menu", "Harga", "Kuantitas");
 		printf("---------------------------------------------------------\n");

@@ -7,8 +7,9 @@ typedef struct{
 	char username[21];
 	char password[9];
 	char nama[31];
-	char user_id[12];
 	int level;
+	char user_id[12];
+
 }User;
 
 void indexLogin(User dt);

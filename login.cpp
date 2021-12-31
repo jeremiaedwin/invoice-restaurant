@@ -37,6 +37,7 @@ void indexLogin(User dt){
 void regist(){
 
 	User dt;
+	time_t tempID;
 	int line;
 	FILE *f_user;
 	
@@ -53,9 +54,13 @@ void regist(){
 	fflush(stdin);
 	printf("Input Password : ");
 	scanf("%s",&dt.password);
+	fflush(stdin);
 	printf("Input Level (1 - 3): ");
 	scanf("%d",&dt.level);
-	time(&dt.user_id);
+	fflush(stdin);
+	printf("You entered: %d", dt.level);
+	time(&tempID);
+	strcpy(dt.user_id,"123");
 	
 
 	fwrite(&dt,sizeof(dt),1,f_user);
@@ -155,15 +160,15 @@ void listUser(){
 			printf(" ");
 			i++;
 		}
-		printf("| %d",U.user_id);
-		sprintf(tempH,"%d",U.user_id);
-		length = strlen(tempH);
-		k = 14;
-		i = 0;
-		while(i<k){
-			printf(" ");
-			i++;
-		}
+//		printf("| %d",U.user_id);
+//		sprintf(tempH,"%d",U.user_id);
+//		length = strlen(tempH);
+//		k = 14;
+//		i = 0;
+//		while(i<k){
+//			printf(" ");
+//			i++;
+//		}
 		printf("|\n");
 		count++;
 	}

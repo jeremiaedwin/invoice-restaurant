@@ -10,12 +10,12 @@ int main(){
 // Deklarasi variabel
 	int opsi;
 	User dt;
-	regist();
+//	regist();	
 	login(&dt);
 	
 //	regist();
 //Login user
-	login(&dt);
+//	login(&dt);
 	printf("\nLevel User :%d",dt.level);
 
 	for(;;){
@@ -24,7 +24,7 @@ int main(){
 			case 1 :
 				printf("\n1. Menu");
 				printf("\n2. Kategori");
-				printf("\n3. Transaksi");
+				printf("\n3. Transaksi euy");
 				printf("\nPilih : ");
 				scanf("%d",&opsi);
 				switch(opsi){
@@ -74,7 +74,7 @@ int main(){
 						indexMenu(dt);
 						break;
 					case 2 :
-//						indexTransaksi(dt);
+						transaksiIndex(dt);
 						break;
 					case 3 :
 //						indexLaporan(dt);
