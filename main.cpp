@@ -4,14 +4,14 @@
 #include "login.h"
 #include "menu.h"
 #include "kategori.h"
-
+#include "transaksi.h"
+//char kode_kasir[25] = "KSR01";
 int main(){
 	User dt;
-//	regist();
+	regist();
 	login(&dt);
 	listUser();
 	int opsi;
-	User dt;
 	
 //	regist();
 	login(&dt);
@@ -30,6 +30,7 @@ int main(){
 					case 1 :
 						break;
 					case 2 :
+						transaksiIndex();
 						break;
 				}
 				break;

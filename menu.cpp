@@ -75,40 +75,10 @@ void indexMenu(User dt){
 				default :
 					return;
 			break;
-	}
-	}
+			}
+		}
 	}
 	
-//	for(;;){
-//		
-//		system("CLS");
-//		printf("1. Create Menu\n");
-//		printf("2. Add Menu\n");
-//		printf("3. Display Menu\n");
-//		printf("4. Update Menu\n");
-//		printf("5. Delete Menu\n");
-//		scanf("%d",&option);
-//	
-//		switch(option){
-//			case 1:
-//				createMenu();
-//				break;
-//			case 2:
-//				addMenu();
-//				break;
-//			case 3:
-//				viewMenu();
-//				break;	
-//			case 4:
-//				update();
-//				break;
-//			case 5:
-//				deleteMenu();
-//				break;
-//			default :
-//				exit(1);
-//	}
-//}
 
 }
 

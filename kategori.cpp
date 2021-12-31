@@ -137,10 +137,7 @@ void updateKategori(){
 	// input baris yang akan diedit
 	printf("Masukkan baris data mana yang akan diedit: ");
 	scanf("%d", &line);
-	
-	fflush(stdin);
-	printf("Kode Kategori : "); 
-	scanf("%s",&kategori2.kode_kategori); 
+	 
 	fflush(stdin);
 	printf("Nama Kategori : "); 
 	scanf("%49[^\n]",&kategori2.nama_kategori); 
@@ -166,6 +163,7 @@ void updateKategori(){
 	{
 		count++;
 		if(count == line){
+			strcpy(kategori2.kode_kategori,kategori1.kode_kategori);
 			fwrite(&kategori2, sizeof(kategori2),i,f_kategori2);
 		}else{
 			fwrite(&kategori1, sizeof(kategori1),i,f_kategori2);
