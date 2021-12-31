@@ -11,40 +11,74 @@ void indexMenu(User dt){
 	int option;
 	for(;;){
 	
-	switch(dt.level){
-		case 1 :
-			system("CLS");
-			printf("1.Display Menu\n");
-			printf("2. Update Menu\n");
-			break;
-		case 2 :
-			system("CLS");
-			printf("1. Create Menu\n");
-			printf("2. Add Menu\n");
-			printf("3. Display Menu\n");
-			printf("4. Update Menu\n");
-			printf("5. Delete Menu\n");
-			printf("Pilih : ");
-			scanf("%d",&option);
-			switch(option){
-				case 1:
-					createMenu();
-					break;
-				case 2:
-					addMenu();
-					break;
-				case 3:
-					viewMenu();
-					break;	
-				case 4:
-					update();
-					break;
-				case 5:
-					deleteMenu();
-					break;
-				default :
-					return;
+		switch(dt.level){
+			case 1 :
+				system("CLS");
+				printf("1.Display Menu\n");
+				printf("2. Update Menu\n");
+				break;
+			case 2 :
+				system("CLS");
+				printf("1. Create Menu\n");
+				printf("2. Add Menu\n");
+				printf("3. Display Menu\n");
+				printf("4. Update Menu\n");
+				printf("5. Delete Menu\n");
+				printf("Pilih : ");
+				scanf("%d",&option);
+				switch(option){
+					case 1:
+						createMenu();
+						break;
+					case 2:
+						addMenu();
+						break;
+					case 3:
+						viewMenu();
+						break;	
+					case 4:
+						update();
+						break;
+					case 5:
+						deleteMenu();
+						break;
+					default :
+						return;
+			}
+				break;
+			
+			case 3 :
+				system("CLS");
+				printf("1. Create Menu\n");
+				printf("2. Add Menu\n");
+				printf("3. Display Menu\n");
+				printf("4. Update Menu\n");
+				printf("5. Delete Menu\n");
+				printf("Pilih : ");
+				scanf("%d",&option);
+				switch(option){
+					case 1:
+						createMenu();
+						break;
+					case 2:
+						addMenu();
+						break;
+					case 3:
+						viewMenu();
+						break;	
+					case 4:
+						update();
+						break;
+					case 5:
+						deleteMenu();
+						break;
+					default :
+						return;
+						break;
+				}
+			}
 		}
+<<<<<<< HEAD
 			break;
 		
 		case 3 :
@@ -79,6 +113,8 @@ void indexMenu(User dt){
 		}
 	}
 	
+=======
+>>>>>>> f9798e939b01af01a0b28a7105867a7cfcb003a7
 
 }
 
@@ -215,13 +251,14 @@ void viewMenu(){
 	for(;;){
 		printf("Lanjut?(Y/N)");
 		opsi = toupper(getche()); 
-			break;
+		if(opsi == 'N'|| opsi == 'n'){
+			return;
+		}
+		break;
 		}
 	
 	fclose(f_menu);
-	if(opsi == 'N'|| opsi == 'n'){
-		return;
-	}
+
 }
 void deleteMenu(){
 	// deklarasi variabel

@@ -3,6 +3,7 @@
 #include <string.h>
 #include <conio.h>
 #include <ctype.h>
+#include <time.h>
 #include "login.h"
 
 
@@ -10,34 +11,39 @@
 void indexLogin(User dt){
 	int opsi;
 	for(;;){
-	if(dt.level <3){
-		return;
-	}
-	system("CLS");
-	printf("1. Create Account\n");
-	printf("2. List Account\n");
-	printf("Press any key beside 1 or 2 to get back!\n");
-	printf("Choose : ");
-	scanf("%d",&opsi);
-	
-	switch(opsi){
-		case 1 :
-			regist();
-			break;
-		case 2 :
-			listUser();
-			break;
-		default :
+		if(dt.level <3){
 			return;
-	}
+		}
+		system("CLS");
+		printf("1. Create Account\n");
+		printf("2. List Account\n");
+		printf("Press any key beside 1 or 2 to get back!\n");
+		printf("Choose : ");
+		scanf("%d",&opsi);
+		
+		switch(opsi){
+			case 1 :
+				regist();
+				break;
+			case 2 :
+				listUser();
+				break;
+			default :
+				return;
+		}
 	}
 	
 }
 void regist(){
 
 	User dt;
+	int line;
 	FILE *f_user;
 	
+	if((f_user=fopen("dataUser.DAT","ab"))==NULL){
+		printf("File gagal dibuat/dibuka!");
+		exit(1);
+	}
 	printf("Input Nama : ");
 	fflush(stdin);
 	gets(dt.nama);
@@ -47,13 +53,11 @@ void regist(){
 	fflush(stdin);
 	printf("Input Password : ");
 	scanf("%s",&dt.password);
-	printf("Input Level : ");
+	printf("Input Level (1 - 3): ");
 	scanf("%d",&dt.level);
+	time(&dt.user_id);
 	
-	if((f_user=fopen("dataUser.DAT","ab"))==NULL){
-		printf("File gagal dibuat/dibuka!");
-		exit(1);
-	}
+
 	fwrite(&dt,sizeof(dt),1,f_user);
 	
 	fclose(f_user);
@@ -69,6 +73,7 @@ void login(User *dt){
 	int line = 1;
 	FILE *f_user;
 	User dt1;
+	
 	do{
 	printf("Username : ");
 	scanf("%s",&tempU);
@@ -106,7 +111,7 @@ void listUser(){
 	int line = 1;
 	int length;
 	int i,k,count;
-	char tempH[10];
+	char tempH[15];
 	
 	//Buka file
 	if ((f_user=fopen("dataUser.DAT", "rb"))==NULL){
@@ -146,6 +151,15 @@ void listUser(){
 		k = 20;
 		i = 0;
 		k = k-length;
+		while(i<k){
+			printf(" ");
+			i++;
+		}
+		printf("| %d",U.user_id);
+		sprintf(tempH,"%d",U.user_id);
+		length = strlen(tempH);
+		k = 14;
+		i = 0;
 		while(i<k){
 			printf(" ");
 			i++;
