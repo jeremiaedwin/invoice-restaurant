@@ -6,34 +6,41 @@
 #include "kategori.h"
 
 int main(){
-
+// Deklarasi variabel
 	int opsi;
 	User dt;
 	
 //	regist();
+//Login user
 	login(&dt);
 	printf("\nLevel User :%d",dt.level);
 
 	for(;;){
 		
-		system("CLS");
 		switch(dt.level){
 			case 1 :
 				printf("\n1. Menu");
-				printf("\n2. Transaksi");
+				printf("\n2. Kategori");
+				printf("\n3. Transaksi");
 				printf("\nPilih : ");
 				scanf("%d",&opsi);
 				switch(opsi){
 					case 1 :
+						indexMenu(dt);
 						break;
 					case 2 :
+						indexKategori(dt);
+						break;
+					case 3 :
+						
 						break;
 				}
 				break;
 			case 2 :
 				printf("\n1. Menu");
-				printf("\n2. Transaksi");
-				printf("\n3. Laporan");
+				printf("\n2. Kategori");				
+				printf("\n3. Transaksi");
+				printf("\n4. Laporan");
 				printf("\nPilih : ");
 				scanf("%d",&opsi);
 				
@@ -42,9 +49,13 @@ int main(){
 						indexMenu(dt);
 						break;
 					case 2 :
+						indexKategori(dt);
 						break;
 					case 3 :
+//						indexTransaksi(dt);
 						break;
+					case 4 :
+//						indexLaporan(dt);
 				}
 				break;
 			case 3 :
@@ -59,8 +70,10 @@ int main(){
 						indexMenu(dt);
 						break;
 					case 2 :
+//						indexTransaksi(dt);
 						break;
 					case 3 :
+//						indexLaporan(dt);
 						break;
 					case 4 :
 						indexLogin(dt);
@@ -70,33 +83,6 @@ int main(){
 			default :
 				printf("Terjadi kesalahan!\nLevel akun tidak ada!");
 				exit(1);
+		}
 	}
-	}
-//		system("CLS");
-//		printf("1. Menu\n");
-//		printf("2. Kategori\n");
-//		printf("3. Display M\n");
-//		printf("4. Update Menu\n");
-//		printf("5. Delete Menu\n");
-//		scanf("%d",&opsi);
-//	
-//		switch(opsi){
-//			case 1:
-//				indexMenu();
-//				break;
-//			case 2:
-//				indexKategori();
-//				break;
-//			case 3:
-//				viewMenu();
-//				break;	
-//			case 4:
-//				update();
-//				break;
-//			case 5:
-//				deleteMenu();
-//				break;
-//			default :
-//				return 0;
-//	}
 }

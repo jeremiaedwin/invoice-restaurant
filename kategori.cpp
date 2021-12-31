@@ -4,41 +4,105 @@
 #include <ctype.h>
 #include <conio.h>
 #include "kategori.h"
+#include "login.h"
 
-void indexKategori(){
+void indexKategori(User dt){
 	system("cls");
 	int pilih = 0;
+	
 	for(;;)
 	{
-		printf("\tKategori Menu\t\n");
-		printf("1. Masukkan data baru\n");
-		printf("2. Lihat daftar kategori\n");
-		printf("3. Cari Kategori\n");
-		printf("4. Kembali\n");
-		printf("\n\t Pilihan : "); 
-		scanf("%d", &pilih); 
-		switch(pilih)
-		{
-			case 1: 
-			{
-				create();
+		switch(dt.level){
+			case 1 :
+				printf("1. Lihat daftar kategori\n");
+				printf("2. Cari Kategori\n");
+				printf("3. Kembali");
+				printf("Pilih :");
+				scanf("%d",&pilih);
+				switch(pilih)
+				{
+					case 1: 
+					{
+						read();
+						break;
+					}
+					case 2: 
+					{
+//						cari();
+						break;
+					}
+					default :
+					{
+						return;
+					}
+				}
 				break;
-			}
-			case 2: 
-			{
-				read();
+			case 2 :
+				printf("1. Lihat daftar kategori\n");
+				printf("2. Cari Kategori\n");
+				printf("3. Kembali");
+				printf("Pilih :");
+				scanf("%d",&pilih);
+				switch(pilih)
+				{
+					case 1: 
+					{
+						read();
+						break;
+					}
+					case 2: 
+					{
+//						cari();
+						break;
+					}
+					default:
+					{
+						return;
+					}
 				break;
+			case 3 :
+				printf("\tKategori Menu\t\n");
+				printf("1. Masukkan data baru\n");
+				printf("2. Lihat daftar kategori\n");
+				printf("3. Hapus Kategori\n");
+				printf("4. Update Kategori\n");
+				printf("4. Kembali\n");
+				printf("\n\t Pilihan : "); 
+				scanf("%d", &pilih); 
+				switch(pilih)
+				{
+					case 1: 
+					{
+						create();
+						break;
+					}
+					case 2: 
+					{
+						read();
+						break;
+					}
+					
+					case 3: 
+					{
+						destroy();
+						break;
+					}
+					case 4:
+					{
+						updateKategori();
+					}
+					default : { return;}
+				}
 			}
-			
-			case 3: 
-			{
-//				search();
+	
 				break;
-			}
-			default : { exit(1);}
+			default :
+				printf("Data level tidak ada!");
+				exit(1);
 		}
 	}
 }
+
 
 void create(){
 	system("cls");
@@ -73,7 +137,7 @@ void create(){
 		break;
 	}
 	fclose(dt_kategori);
-	indexKategori();
+	return;
 }
 
 void read()
@@ -121,7 +185,7 @@ void read()
 			}
 		case 3:
 		{
-			indexKategori();
+			return;
 			break;
 		}
 		default: exit(1);
@@ -176,6 +240,7 @@ void updateKategori(){
 	fclose(f_kategori2);
 	remove("f_kategori.DAT");
 	rename("f_kategori_2.DAT", "f_kategori.DAT");
+	return;
 	
 }
 
@@ -221,4 +286,5 @@ void destroy(){
 	// Merubah file copy menjadi original
 	remove("f_kategori.DAT");
 	rename("f_kategori_2.DAT", "f_kategori.DAT");
+	return;
 }

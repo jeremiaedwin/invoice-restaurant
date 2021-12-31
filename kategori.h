@@ -1,6 +1,7 @@
 #ifndef kategori_H
 #define kategori_H
 #include <string>
+#include "login.h"
 using namespace std;
 
 typedef struct {
@@ -10,7 +11,7 @@ typedef struct {
 
 #define BUFFER_SIZE 1000
 
-void indexKategori(); 
+void indexKategori(User dt); 
 void create(); 
 void read(); 
 void updateKategori();

@@ -1,11 +1,13 @@
 #ifndef login_H
 #define login_H
+#include <time.h>
 
 
 typedef struct{
 	char username[21];
 	char password[9];
 	char nama[31];
+	time_t user_id;
 	int level;
 }User;
 
