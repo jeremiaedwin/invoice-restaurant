@@ -1,3 +1,10 @@
+/*
+Judul : login.cpp
+Author : Panji Judha Fadhillq
+NIM : 211511053
+Sebuah modul yang fungsinya membuat user,delete user
+dan login.
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,7 +16,9 @@
 
 
 void indexLogin(User dt){
-	int opsi;
+	//Deklarasi variabel lokal
+	
+	int opsi;//penammpung opsi user
 	for(;;){
 		if(dt.level <3){
 			return;
@@ -36,7 +45,8 @@ void indexLogin(User dt){
 }
 void regist(){
 
-	User dt;
+//Deklarasi Variabel Lokal
+	User dt;//struct data user
 	time_t tempID;
 	int line;
 	FILE *f_user;
@@ -60,6 +70,7 @@ void regist(){
 	fflush(stdin);
 	printf("You entered: %d", dt.level);
 	time(&tempID);
+	sprintf(dt.user_id,"%d",tempID);
 	strcpy(dt.user_id,"123");
 	
 
@@ -160,15 +171,7 @@ void listUser(){
 			printf(" ");
 			i++;
 		}
-//		printf("| %d",U.user_id);
-//		sprintf(tempH,"%d",U.user_id);
-//		length = strlen(tempH);
-//		k = 14;
-//		i = 0;
-//		while(i<k){
-//			printf(" ");
-//			i++;
-//		}
+
 		printf("|\n");
 		count++;
 	}
