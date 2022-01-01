@@ -56,7 +56,7 @@ void indexMenu(User dt){
 						break;
 					default :
 						return;
-			}
+				}
 				break;
 			
 			case 3 :
@@ -88,42 +88,11 @@ void indexMenu(User dt){
 						return;
 						break;
 				}
-			}
 		}
-
-//			break;
-		
-//		case 3 :
-//			system("CLS");
-//			printf("1. Create Menu\n");
-//			printf("2. Add Menu\n");
-//			printf("3. Display Menu\n");
-//			printf("4. Update Menu\n");
-//			printf("5. Delete Menu\n");
-//			printf("Pilih : ");
-//			scanf("%d",&option);
-//			switch(option){
-//				case 1:
-//					createMenu();
-//					break;
-//				case 2:
-//					addMenu();
-//					break;
-//				case 3:
-//					viewMenu();
-//					break;	
-//				case 4:
-//					update();
-//					break;
-//				case 5:
-//					deleteMenu();
-//					break;
-//				default :
-//					return;
-//			break;
-//			}
-//		}
 	}
+
+
+}
 
 
 
@@ -237,7 +206,7 @@ void viewMenu(){
 	
 	count = 1;
 	//Display file ke layar
-	printf("No  Menu          Price       Status  \n") ;
+	printf("No  Menu          Harga      Status  \n") ;
 	while ((fread(&m,sizeof(m),line,f_menu)) == line){
 		k = 12;
 		i = 0;
