@@ -1,41 +1,41 @@
 #ifndef transaksi_H
 #define transaksi_H
-#include "transaksi.h"
 #include "login.h"
+#include "menu.h"
 
-//char kode_kasir1[25] = "KSR01"; 
+// Struct keranjang tempat menaruh menu yang diambil
 typedef struct{
-	char kMenu[5];
-	char nMenu[51];
-	int hMenu;
-	int qty;
+	char kMenu[5]; //kode menu
+	char nMenu[51]; //nama menu
+	int hMenu; //harga menu
+	int qty; //kuantitas menu
 }Keranjang;
 
+// Struct tanggal pembelian
 typedef struct{
-	char kode_transaksi[6];
-	char kode_user[6];
-	char tanggal_pembelian[25];
-	Keranjang dt_menu[10];
-	int total_harga;
-	int jMenu;
-	int uangMasuk;
-	int kembalian;
+	int tanggal; // tanggal pembelian
+	int bulan; // bulan pembelian
+	int tahun; // tahun pembelian
+}Date;
+
+// Struct data pembayaran
+typedef struct{
+	char kode_transaksi[6]; //kode transaksi
+	char kode_user[6]; //kode kasir yang melakukan proses pembayaran
+	Date tanggal_pembelian; //tanggal pembelian
+	Keranjang dt_menu[10]; //menu yang akan dibeli
+	int total_harga; //total harga yang harus dibayar
+	int jMenu; //jumlah menu yang dibeli
+	int uangMasuk; //uang yang dibayarkan
+	int kembalian; //kembalian
 }Pembayaran;
 
-typedef struct{
-	char nMenu[51];
-	int hMenu;
-	int sMenu;
-	char kMenu[5];
-}menu1;
+void transaksiIndex(User dt); //menampilkan pilihan menu untuk transaksi
+void readMenu(); //void menampilkan menu ketika melakukan transaksi
+void inputTransaksi(User dt); //modul transaksi
+Keranjang searchMenu(char kodeMenu[6],User dt); //modul pencarian data menu
+void hitungHarga(Pembayaran dt, int *total, int *sum, int n); //modul perhitungan total harga
+void viewTransaksi(); //daftar transaksi
 
-void transaksiIndex(User dt);
-void viewMenu();
-Keranjang searchMenu(char kodeMenu[6],User dt);
-void inputTransaksi(User dt);
-void hitungHarga(Pembayaran dt, int *total, int *sum, int n);
-void viewTransaksi();
-void validateQty(int qty, char kode_menu[6]);
-void validateKode(Pembayaran dt);
 
 #endif

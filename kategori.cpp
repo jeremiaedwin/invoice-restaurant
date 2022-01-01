@@ -8,16 +8,19 @@
 
 void indexKategori(User dt){
 	system("cls");
+//	Kamus data
 	int pilih = 0;
 	
+//	menu fitru di kateogir
 	for(;;)
 	{
 		switch(dt.level){
+//			menu yang tersedia untuk user kasir
 			case 1 :
 				printf("1. Lihat daftar kategori\n");
-				printf("2. Cari Kategori\n");
-				printf("3. Kembali");
-				printf("Pilih :");
+				printf("2. Create Kategori\n");
+				printf("3. Kembali\n");
+				printf("\n\tPilih :");
 				scanf("%d",&pilih);
 				switch(pilih)
 				{
@@ -28,7 +31,7 @@ void indexKategori(User dt){
 					}
 					case 2: 
 					{
-//						cari();
+						create();
 						break;
 					}
 					default :
@@ -37,11 +40,12 @@ void indexKategori(User dt){
 					}
 				}
 				break;
+//			menu yang tersedia untuk user kasir
 			case 2 :
 				printf("1. Lihat daftar kategori\n");
 				printf("2. Cari Kategori\n");
-				printf("3. Kembali");
-				printf("Pilih :");
+				printf("3. Kembali\n");
+				printf("\n\tPilih :");
 				scanf("%d",&pilih);
 				switch(pilih)
 				{
@@ -52,7 +56,7 @@ void indexKategori(User dt){
 					}
 					case 2: 
 					{
-//						cari();
+						create();
 						break;
 					}
 					default:
@@ -60,13 +64,12 @@ void indexKategori(User dt){
 						return;
 					}
 				break;
+//			menu yang tersedia untuk user kasir
 			case 3 :
 				printf("\tKategori Menu\t\n");
 				printf("1. Masukkan data baru\n");
 				printf("2. Lihat daftar kategori\n");
-				printf("3. Hapus Kategori\n");
-				printf("4. Update Kategori\n");
-				printf("4. Kembali\n");
+				printf("3. Kembali\n");
 				printf("\n\t Pilihan : "); 
 				scanf("%d", &pilih); 
 				switch(pilih)
@@ -80,16 +83,6 @@ void indexKategori(User dt){
 					{
 						read();
 						break;
-					}
-					
-					case 3: 
-					{
-						destroy();
-						break;
-					}
-					case 4:
-					{
-						updateKategori();
 					}
 					default : { return;}
 				}
@@ -106,6 +99,8 @@ void indexKategori(User dt){
 
 void create(){
 	system("cls");
+	
+//	Kamus data
 	Kategori dt;
 	char again;
 	FILE *dt_kategori;
@@ -118,6 +113,7 @@ void create(){
 
 	for (;;)
 	{
+//		Proses input data
 		fflush(stdin);
 		printf("Kode Kategori : "); 
 		scanf("%s",&dt.kode_kategori); 
@@ -126,7 +122,7 @@ void create(){
 		scanf("%49[^\n]",&dt.nama_kategori); 
 		fflush(stdin);
 
-//		fprintf(dt_kategori, "%s %s\n", dt.kode_kategori, dt.nama_kategori);
+//		Proses tulis data ke file
 		fwrite(&dt, sizeof(dt), 1, dt_kategori);
 		
 
@@ -143,26 +139,27 @@ void create(){
 void read()
 {
 	system("cls");
-	Kategori dt; //variabel struct
-	FILE *f_kategori; //variabel file
+	
+//	Kamus data
+	Kategori dt; t
+	FILE *f_kategori; 
 
 	if ((f_kategori=fopen("f_kategori.DAT", "rb"))==NULL)
 	{
 		printf ("File tidak dapat dibuka\n"); 
 		exit(1);
 	}
-	printf ("-------------------------------------------------\n");
-	printf ("|\t Daftar Kategori \t\t\t|\n");
-	printf ("-------------------------------------------------\n");
-	printf ("|\t Kode Kategori \t|\t Nama Kategori \t|\n");
-	printf ("-------------------------------------------------\n");
-	
+	printf ("--------------------------------------\n");
+	printf ("|          Daftar Kategori           |\n");
+	printf ("--------------------------------------\n");
+	printf("|%-15s|%-20s|\n", "Kode Kategori" ,"Nama Kategori");
+	printf("--------------------------------------\n");
 	int line = 1; //baris file
 	while ((fread(&dt, sizeof(dt),line, f_kategori))==line)
 	{
-		printf("|\t %s \t\t|%s \t|\n", dt.kode_kategori, dt.nama_kategori);
+		printf("|%-15s|%-20s|\n", dt.kode_kategori, dt.nama_kategori);
 	}
-	printf ("------------------------------------------------\n");
+	printf ("--------------------------------------\n");
 	fclose(f_kategori);
 	
 	int pil = 0;

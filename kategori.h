@@ -9,7 +9,6 @@ typedef struct {
 	char nama_kategori[50];
 } Kategori;
 
-#define BUFFER_SIZE 1000
 
 void indexKategori(User dt); 
 void create(); 

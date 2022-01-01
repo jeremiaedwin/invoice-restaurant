@@ -5,6 +5,7 @@
 #include "menu.h"
 #include "kategori.h"
 #include "transaksi.h"
+#include "rekap.h"
 //char kode_kasir[25] = "KSR01";
 int main(){
 // Deklarasi variabel
@@ -23,8 +24,8 @@ int main(){
 		switch(dt.level){
 			case 1 :
 				printf("\n1. Menu");
-				printf("\n2. Kategori");
-				printf("\n3. Transaksi euy");
+				printf("\n2. Transaksi");
+				printf("\n3. Kategori ");
 				printf("\nPilih : ");
 				scanf("%d",&opsi);
 				switch(opsi){
@@ -33,9 +34,10 @@ int main(){
 						break;
 					case 2 :
 						transaksiIndex(dt);
-//						indexKategori(dt);
+//						
 						break;
 					case 3 :
+						indexKategori(dt);
 						break;
 				}
 				break;
@@ -58,7 +60,7 @@ int main(){
 //						indexTransaksi(dt);
 						break;
 					case 4 :
-//						indexLaporan(dt);
+						indexRekap();
 						break;
 					}
 				break;
@@ -67,6 +69,7 @@ int main(){
 				printf("\n2. Transaksi");
 				printf("\n3. Laporan");
 				printf("\n4. Manajemen Akun");
+				printf("\n4. Kategori");
 				printf("\nPilih : ");
 				scanf("%d",&opsi);
 				switch(opsi){

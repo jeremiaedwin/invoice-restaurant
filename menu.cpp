@@ -5,6 +5,7 @@
 #include <conio.h>
 #include "menu.h"
 #include "login.h"
+#include "kategori.h"
 
 void indexMenu(User dt){
 		
@@ -134,6 +135,7 @@ void createMenu(){
 	int i;
 	menu m;
 	FILE *f_menu;
+	char kode_kategori[3];
 	
 	system("CLS");
 	printf("Pembuatan menu akan membuat menu sebelumnya dihapus.");
@@ -162,9 +164,19 @@ void createMenu(){
 		fflush(stdin);
 		printf("Input Kode Menu : ");
 		scanf("%s",&m.kMenu);
+		for(;;){
+			printf("Masukkan Kode Kategori : ");
+			scanf("%s", &kode_kategori);
+			m.kategori = searchKategori(kode_kategori);
+			printf("%s", m.kategori.kode_kategori);
+			if(strcmp(m.kategori.kode_kategori, kode_kategori )==0)
+			break;
+		}
 		if(m.sMenu>1 && m.sMenu<0){
 			break;
 		}
+		
+		
 		//Save user input kedalam file
 		fwrite(&m,sizeof(m),1,f_menu);		
 		printf("Input File again ?(Y/N)");
@@ -174,11 +186,33 @@ void createMenu(){
 	fclose(f_menu);
 }
 
+Kategori searchKategori(char kode_kategori[3]){
+	FILE *f_kategori;
+	menu data_menu;
+	Kategori dt_kategori;
+	if ((f_kategori=fopen("f_kategori.DAT", "rb"))==NULL)
+	{
+		printf ("File tidak dapat dibuka\n"); 
+		exit(1);
+	}
+	int i = 1;
+	bool find = false;
+	while(fread(&dt_kategori, sizeof(dt_kategori),1, f_kategori)){
+		if(strcmp(kode_kategori,dt_kategori.kode_kategori)==0){
+			find = true;
+			return dt_kategori;	
+		}
+	}
+	fclose(f_kategori);
+	
+}
+
 void addMenu(){
 	int line = 1;
 	char jawab;
 	menu m;
 	FILE *f_menu;
+	char kode_kategori[3];
 	
 	if((f_menu=fopen("dataMenu.DAT","rb")) == NULL){
 		printf("Gagal membuka file!\n");
@@ -203,6 +237,16 @@ void addMenu(){
 		fflush(stdin);
 		printf("Input Kode Menu : ");
 		scanf("%4s",&m.kMenu);
+		int T;
+		for(;;){
+			printf("Masukkan Kode Kategori : ");
+			scanf("%s", &kode_kategori);
+			m.kategori = searchKategori(kode_kategori);
+			printf("%s", m.kategori.kode_kategori);
+			if(strcmp(m.kategori.kode_kategori, kode_kategori )==0)
+			break;
+		}
+		
 		if(m.sMenu>1 && m.sMenu<0){
 			break;
 		}
@@ -237,7 +281,7 @@ void viewMenu(){
 	
 	count = 1;
 	//Display file ke layar
-	printf("No  Menu          Price       Status  \n") ;
+	printf("No  Menu          Price       Kategori          Status  \n") ;
 	while ((fread(&m,sizeof(m),line,f_menu)) == line){
 		k = 12;
 		i = 0;
@@ -259,12 +303,13 @@ void viewMenu(){
 			printf(" ");
 			i++;
 		}
+		printf("| %s %s ",m.kategori.kode_kategori, m.kategori.nama_kategori);
 		if(m.sMenu == 1){
 			printf("| Tersedia       |\n");	
 		}else {
 			printf("| Tidak tersedia |\n");
 		}
-//		printf("| %d\n",m.sMenu);
+		
 		count++;
 	}
 	for(;;){
