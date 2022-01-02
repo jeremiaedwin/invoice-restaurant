@@ -183,11 +183,7 @@ void addMenu(){
 	FILE *f_menu;
 	char kode_kategori[3];
 	
-	if((f_menu=fopen("dataMenu.DAT","rb")) == NULL){
-		printf("Gagal membuka file!\n");
-	}
-	while ((fread(&m,sizeof(m),line,f_menu)) == line){
-	}
+
 	if((f_menu=fopen("dataMenu.DAT","ab")) == NULL){
 		printf("Gagal membuka file!");
 	}
@@ -235,9 +231,10 @@ void addMenu(){
 	fclose(f_menu);
 }
 
-void viewMenu(){
+bool viewMenu(){
 	//deklarasi variabel
 	menu m;
+	bool pilihan = false;
 	FILE *f_menu;
 	char opsi;
 	int line = 1;
@@ -268,26 +265,32 @@ void viewMenu(){
 		count++;
 	}
 	printf("----------------------------------------------------------------------------------------\n");
+	fclose(f_menu);
 	for(;;){
 		printf("Lanjut?(Y/N)");
 		opsi = toupper(getche()); 
 		if(opsi == 'N'|| opsi == 'n'){
-			return;
+			pilihan = true;
+			return pilihan;
 		}
 		break;
 		}
 	
-	fclose(f_menu);
+	return pilihan;
 
 }
 void deleteMenu(){
 	// deklarasi variabel
 	int line, count, i;
+	bool opsi;
 	menu m1, m2;
 	FILE *f_menu1, *f_menu2; // kategori1 adalah file original dan kategori 2 adalah file copy nya
 	
 	// input baris yang akan didelete
-	viewMenu();
+	opsi = viewMenu();
+	if(opsi){
+		return;
+	}
 	printf("\nMasukkan baris data mana yang akan di delete : ");
 	scanf("%d", &line);
 	fflush(stdin);
@@ -328,6 +331,7 @@ void deleteMenu(){
 void update(){
 	// deklarasi variabel
 	int line, count, i, pilihan;
+	bool opsi;
 	char tempH[10];
 	char tempS[10];
 	char kode_kategori[6];
@@ -335,7 +339,10 @@ void update(){
 	menu m1, m2;
 	FILE *f_menu1, *f_menu2; // kategori1 adalah file original dan kategori 2 adalah file copy nya
 	
-	viewMenu();
+	opsi = viewMenu();
+	if(opsi){
+		return;
+	}
 	// input baris yang akan diedit
 	printf("\nMasukkan baris data mana yang akan di update: ");
 	scanf("%d", &line);
@@ -369,6 +376,8 @@ void update(){
 			fflush(stdin);
 			sprintf(tempH,"%d",m1.hMenu);
 			sprintf(tempS,"%d",m1.sMenu);
+			strcpy(m2.kategori.kode_kategori,m1.kategori.kode_kategori);
+			strcpy(m2.kategori.nama_kategori,m1.kategori.nama_kategori);
 			m2.hMenu = atoi(tempH);
 			m2.sMenu = atoi(tempS);
 			break;
@@ -378,6 +387,8 @@ void update(){
 			scanf("%d",&m2.hMenu);
 			fflush(stdin);
 			strcpy(m2.nMenu,m1.nMenu);
+			strcpy(m2.kategori.kode_kategori,m1.kategori.kode_kategori);
+			strcpy(m2.kategori.nama_kategori,m1.kategori.nama_kategori);
 			m2.sMenu = atoi(tempS);
 			break;
 			
@@ -386,6 +397,8 @@ void update(){
 			scanf("%d",&m2.sMenu);
 			fflush(stdin);
 			strcpy(m2.nMenu,m1.nMenu);
+			strcpy(m2.kategori.kode_kategori,m1.kategori.kode_kategori);
+			strcpy(m2.kategori.nama_kategori,m1.kategori.nama_kategori);
 			sprintf(tempH,"%d",m1.hMenu);
 			m2.hMenu = atoi(tempH);
 			
@@ -442,6 +455,7 @@ void update(){
 	fclose(f_menu2);
 	remove("dataMenu.DAT");
 	rename("dataMenu_2.DAT", "dataMenu.DAT");
+	return;
 }
 
 void readKategori(){

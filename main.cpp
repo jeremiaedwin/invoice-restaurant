@@ -73,7 +73,7 @@ int main(){
 						transaksiIndex(dt);
 						break;
 					case 4 :
-						indexRekap();
+//						indexRekap();
 						break;
 					default :
 						return 0;

@@ -21,7 +21,7 @@ typedef struct{
 // Struct data pembayaran
 typedef struct{
 	char kode_transaksi[6]; //kode transaksi
-	char kode_user[6]; //kode kasir yang melakukan proses pembayaran
+	char kode_user[12]; //kode kasir yang melakukan proses pembayaran
 	Date tanggal_pembelian; //tanggal pembelian
 	Keranjang m[10]; //menu yang akan dibeli
 	int total_harga; //total harga yang harus dibayar
@@ -32,7 +32,7 @@ typedef struct{
 
 void transaksiIndex(User dt); //menampilkan pilihan menu untuk transaksi
 void readMenu(); //void menampilkan menu ketika melakukan transaksi
-void inputTransaksi(User dt); //modul transaksi
+void inputTransaksi(User dt);
 Keranjang searchMenu(char kodeMenu[6],User dt); //modul pencarian data menu
 void hitungHarga(Pembayaran dt, int *total, int *sum, int n); //modul perhitungan total harga
 void viewTransaksi(); //daftar transaksi
