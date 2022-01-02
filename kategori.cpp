@@ -5,6 +5,7 @@
 #include <conio.h>
 #include "kategori.h"
 #include "login.h"
+#include "menu.h"
 
 void indexKategori(User dt){
 	system("cls");
@@ -64,6 +65,7 @@ void indexKategori(User dt){
 						return;
 					}
 				break;
+			}
 //			menu yang tersedia untuk user kasir
 			case 3 :
 				printf("\tKategori Menu\t\n");
@@ -86,15 +88,17 @@ void indexKategori(User dt){
 					}
 					default : { return;}
 				}
-			}
-	
 				break;
+			
+	
+				
 			default :
 				printf("Data level tidak ada!");
 				exit(1);
+			}
 		}
 	}
-}
+
 
 
 void create(){
@@ -141,7 +145,7 @@ void read()
 	system("cls");
 	
 //	Kamus data
-	Kategori dt; t
+	Kategori dt;
 	FILE *f_kategori; 
 
 	if ((f_kategori=fopen("f_kategori.DAT", "rb"))==NULL)
@@ -192,7 +196,7 @@ void read()
 void updateKategori(){
 	// deklarasi variabel
 	int line, count, i;
-	Kategori kategori1, kategori2;
+	Kategori kategori1, kategori2, kategori3;
 	FILE *f_kategori1, *f_kategori2; // kategori1 adalah file original dan kategori 2 adalah file copy nya
 	
 	// input baris yang akan diedit
@@ -242,8 +246,10 @@ void updateKategori(){
 void destroy(){
 	// deklarasi variabel
 	int line, count, i;
-	Kategori kategori1, kategori2;
+	Kategori kategori1, kategori2, kategori3;
+	menu dt_menu;
 	FILE *f_kategori1, *f_kategori2; // kategori1 adalah file original dan kategori 2 adalah file copy nya
+	FILE *f_menu, *f_menu2;
 	
 	// input baris yang akan diedit
 	printf("Masukkan baris data mana yang akan dihapus: ");
@@ -251,6 +257,7 @@ void destroy(){
 	
 	fflush(stdin);
 	
+
 	//membuka file
 	if ((f_kategori1=fopen("f_kategori.DAT", "rb"))==NULL)
 	{
@@ -264,6 +271,8 @@ void destroy(){
 		exit(1);
 	}
 	
+	
+	
 	i = 1;
 	count = 0;
 	while ((fread(&kategori1, sizeof(kategori1),i, f_kategori1)) == i)
@@ -271,15 +280,46 @@ void destroy(){
 		count++;
 		if(count != line){
 			fwrite(&kategori1, sizeof(kategori1),i,f_kategori2);
+		}else{
+			strcpy(kategori3.kode_kategori,kategori1.kode_kategori);
+			strcpy(kategori3.nama_kategori,kategori1.nama_kategori);
 		}
 	}
-		
+	
 	// Menutup kedua file
 	fclose(f_kategori1);
 	fclose(f_kategori2);
 	
+	
 	// Merubah file copy menjadi original
 	remove("f_kategori.DAT");
 	rename("f_kategori_2.DAT", "f_kategori.DAT");
+	
+		//membuka file
+	if ((f_menu=fopen("dataMenu.DAT", "rb"))==NULL)
+	{
+		printf ("File tidak dapat dibuka\n"); 
+		exit(1);
+	}
+	
+	if ((f_menu2=fopen("dataMenu_2.DAT", "ab"))==NULL)
+	{
+		printf ("File tidak dapat dibuka\n"); 
+		exit(1);
+	}
+	
+	
+	while((fread(&dt_menu, sizeof(dt_menu), 1, f_menu)==1)){
+		if((strcmp(kategori3.kode_kategori, dt_menu.kategori.kode_kategori)!=0) && (strcmp(kategori3.nama_kategori, dt_menu.kategori.nama_kategori)!=0)){
+			fwrite(&dt_menu, sizeof(dt_menu), 1, f_menu2);
+		}
+	}
+		
+	fclose(f_menu);
+	fclose(f_menu2);
+	
+	
+	remove("dataMenu.DAT");
+	rename("dataMenu_2.DAT", "dataMenu.DAT");
 	return;
 }

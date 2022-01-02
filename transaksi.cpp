@@ -5,6 +5,8 @@
 #include <string.h> 
 #include <ctype.h> 
 #include <time.h>
+#include <conio.h>
+#include <iostream>
 #include "transaksi.h"
 #include "login.h"
 using namespace std;
@@ -16,9 +18,9 @@ void transaksiIndex(User dt){
 	for(;;)
 	{
 		printf("\tTransaksi\t\n");
-		printf("1. Masukkan Transaksi\n");
-		printf("2. Lihat daftar transaksi\n");
-		printf("4. Kembali\n");
+		printf(" 1. Masukkan Transaksi\n");
+		printf(" 2. Lihat daftar transaksi\n");
+		printf(" 3. Kembali\n");
 		printf("\n\t Pilihan : "); 
 		scanf("%d", &pilih); 
 		
@@ -84,13 +86,13 @@ void inputTransaksi(User dt){
 		fflush(stdin);
 		
 		//Pencarian menu lewat kode menu
-		dt_pembayaran.dt_menu[i] = searchMenu(kode_menu,dt);
+		dt_pembayaran.m[i] = searchMenu(kode_menu,dt);
 		
 		//Input kuantitas yang mau dibeli
 		fflush(stdin);
 		printf("Masukkan kuantitas : ");
-		scanf("%d", &dt_pembayaran.dt_menu[i].qty);
-		kuantitas = dt_pembayaran.dt_menu[i].qty;
+		scanf("%d", &dt_pembayaran.m[i].qty);
+		kuantitas = dt_pembayaran.m[i].qty;
 		fflush(stdin);
 		
 		fflush(stdin);
@@ -180,7 +182,7 @@ void hitungHarga(Pembayaran dt, int *total,int *sum, int n){
 	
 	// Proses perhitungan jumlah harga per menu
 	for(j = 0; j<n; j++){
-		tmpHarga[j] = dt.dt_menu[j].qty*dt.dt_menu[j].hMenu;
+		tmpHarga[j] = dt.m[j].qty*dt.m[j].hMenu;
 		count = j;
 	}
 	
@@ -221,7 +223,7 @@ void viewTransaksi(){
 		printf("|%-10s|%-20s|%-12s|%-10s|\n", "Kode Menu" ,"Nama Menu", "Harga", "Kuantitas");
 		printf("---------------------------------------------------------\n");
 		do{
-			printf("|%-10s|%-20s|%-12d|%-10d|\n", dt_pembayaran.dt_menu[a].kMenu ,dt_pembayaran.dt_menu[a].nMenu, dt_pembayaran.dt_menu[a].hMenu,  dt_pembayaran.dt_menu[a].qty);
+			printf("|%-10s|%-20s|%-12d|%-10d|\n", dt_pembayaran.m[a].kMenu ,dt_pembayaran.m[a].nMenu, dt_pembayaran.m[a].hMenu,  dt_pembayaran.m[a].qty);
 		a++;
 		}while(a<dt_pembayaran.jMenu);
 		
@@ -232,7 +234,7 @@ void viewTransaksi(){
 }
 
 void readMenu(){
-	menu dt_menu;
+	menu m;
 	FILE *f_menu;
 	
 	
@@ -243,10 +245,10 @@ void readMenu(){
 	printf("------------------------------------------------------------------------------\n");
 	printf("|%-10s|%-20s|%-20s|%-12s|%-10s|\n", "Kode Menu" ,"Nama Menu", "Kategori", "Harga", "Status");
 	printf("------------------------------------------------------------------------------\n");
-	while ((fread(&dt_menu, sizeof(dt_menu),1, f_menu))==1)
+	while ((fread(&m, sizeof(m),1, f_menu))==1)
 	{
-		if(dt_menu.sMenu == 1){
-			printf("|%-10s|%-20s%-20s|%-12d|%-10d|\n", dt_menu.kMenu, dt_menu.nMenu, dt_menu.kategori.nama_kategori, dt_menu.hMenu, dt_menu.sMenu);
+		if(m.sMenu == 1){
+			printf("|%-10s|%-20s%-20s|%-12d|%-10d|\n", m.kMenu, m.nMenu, m.kategori.nama_kategori, m.hMenu, "Tersedia");
 		}
 		
 	}

@@ -1,6 +1,6 @@
 /*
 Judul : login.cpp
-Author : Panji Judha Fadhillq
+Author : Panji Judha Fadhilla
 NIM : 211511053
 Sebuah modul yang fungsinya membuat user,delete user
 dan login.
@@ -68,10 +68,9 @@ void regist(){
 	printf("Input Level (1 - 3): ");
 	scanf("%d",&dt.level);
 	fflush(stdin);
-	printf("You entered: %d", dt.level);
 	time(&tempID);
 	sprintf(dt.user_id,"%d",tempID);
-	strcpy(dt.user_id,"123");
+
 	
 
 	fwrite(&dt,sizeof(dt),1,f_user);
@@ -102,7 +101,6 @@ void login(User *dt){
 	while((fread(&dt1,sizeof(dt1),line,f_user))==line){
 		if((strcmp(dt1.username,tempU))==0 && (strcmp(dt1.password,tempP)) == 0){
 			userFind = false;
-			printf("Selamat Datang %s!\n",dt1.nama);
 			*dt = input(dt1);
 		}
 	}
@@ -113,6 +111,7 @@ void login(User *dt){
 	count++;
 	}while((userFind)&&count<5);
 	fclose(f_user);
+	system("cls");
 }
 User input(User dt){
 	return dt;

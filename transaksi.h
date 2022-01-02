@@ -23,7 +23,7 @@ typedef struct{
 	char kode_transaksi[6]; //kode transaksi
 	char kode_user[6]; //kode kasir yang melakukan proses pembayaran
 	Date tanggal_pembelian; //tanggal pembelian
-	Keranjang dt_menu[10]; //menu yang akan dibeli
+	Keranjang m[10]; //menu yang akan dibeli
 	int total_harga; //total harga yang harus dibayar
 	int jMenu; //jumlah menu yang dibeli
 	int uangMasuk; //uang yang dibayarkan
@@ -39,3 +39,5 @@ void viewTransaksi(); //daftar transaksi
 
 
 #endif
+
+

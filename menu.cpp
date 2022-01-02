@@ -15,17 +15,12 @@ void indexMenu(User dt){
 		switch(dt.level){
 			case 1 :
 				system("CLS");
-				printf("1.Display Menu\n");
-				printf("2. Update Menu\n");
+				printf("1. Display Menu\n");
 				scanf("%d",&option);
 				switch(option){
 					case 1:
 						viewMenu();
-						break;
-					case 2:
-						update();
-						break;
-				
+						break;			
 					default :
 						return;
 					}	
@@ -57,7 +52,7 @@ void indexMenu(User dt){
 						break;
 					default :
 						return;
-				}
+			}
 				break;
 			
 			case 3 :
@@ -89,11 +84,9 @@ void indexMenu(User dt){
 						return;
 						break;
 				}
+			}
 		}
 	}
-
-
-}
 
 
 
@@ -104,6 +97,7 @@ void createMenu(){
 	int i;
 	menu m;
 	FILE *f_menu;
+	int count;
 	char kode_kategori[3];
 	
 	system("CLS");
@@ -133,13 +127,19 @@ void createMenu(){
 		fflush(stdin);
 		printf("Input Kode Menu : ");
 		scanf("%s",&m.kMenu);
+		count = 0;
 		for(;;){
-			printf("Masukkan Kode Kategori : ");
+			count++;
+			readKategori();
+			printf("\nMasukkan Kode Kategori : ");
 			scanf("%s", &kode_kategori);
 			m.kategori = searchKategori(kode_kategori);
-			printf("%s", m.kategori.kode_kategori);
-			if(strcmp(m.kategori.kode_kategori, kode_kategori )==0)
-			break;
+			if((strcmp(m.kategori.kode_kategori, kode_kategori )==0)){
+				break;
+			} else if(count == 4){
+				return;
+			}
+			
 		}
 		if(m.sMenu>1 && m.sMenu<0){
 			break;
@@ -191,6 +191,7 @@ void addMenu(){
 	if((f_menu=fopen("dataMenu.DAT","ab")) == NULL){
 		printf("Gagal membuka file!");
 	}
+	int count = 0;
 	do{
 		system("CLS");
 		//Meminta user Input
@@ -208,12 +209,16 @@ void addMenu(){
 		scanf("%4s",&m.kMenu);
 		int T;
 		for(;;){
-			printf("Masukkan Kode Kategori : ");
+			count++;
+			readKategori();
+			printf("\nMasukkan Kode Kategori : ");
 			scanf("%s", &kode_kategori);
 			m.kategori = searchKategori(kode_kategori);
-			printf("%s", m.kategori.kode_kategori);
-			if(strcmp(m.kategori.kode_kategori, kode_kategori )==0)
-			break;
+			if((strcmp(m.kategori.kode_kategori, kode_kategori )==0)){
+				break;
+			} else if(count == 4){
+				return;
+			}
 		}
 		
 		if(m.sMenu>1 && m.sMenu<0){
@@ -250,37 +255,19 @@ void viewMenu(){
 	
 	count = 1;
 	//Display file ke layar
-	printf("No  Menu          Price       Kategori          Status  \n") ;
+	printf("----------------------------------------------------------------------------------------\n");
+	printf("|%-10s|%-20s|%-20s|%-12s|%-20s|\n", "Kode Menu" ,"Nama Menu", "Kategori", "Harga", "Status");
+	printf("----------------------------------------------------------------------------------------\n");
 	while ((fread(&m,sizeof(m),line,f_menu)) == line){
-		k = 12;
-		i = 0;
-		printf(" %d |",count);
-		length = strlen(m.nMenu);
-		printf(" %s",m.nMenu);
-		k = k-length;
-		while(i<k){
-			printf(" ");
-			i++;
-		}
-		printf("| Rp. %d",m.hMenu);
-		sprintf(tempH,"%d",m.hMenu);
-		length = strlen(tempH);
-		k = 6;
-		i = 0;
-		k = k-length;
-		while(i<k){
-			printf(" ");
-			i++;
-		}
-		printf("| %s %s ",m.kategori.kode_kategori, m.kategori.nama_kategori);
 		if(m.sMenu == 1){
-			printf("| Tersedia       |\n");	
-		}else {
-			printf("| Tidak tersedia |\n");
+			printf("|%-10s|%-20s|%-20s|%-12d|%-20s|\n", m.kMenu, m.nMenu, m.kategori.nama_kategori, m.hMenu,"Tersedia");
+		}else{
+			printf("|%-10s|%-20s|%-20s|%-12d|%-20s|\n", m.kMenu, m.nMenu, m.kategori.nama_kategori, m.hMenu,"Tidak Tersedia");
 		}
 		
 		count++;
 	}
+	printf("----------------------------------------------------------------------------------------\n");
 	for(;;){
 		printf("Lanjut?(Y/N)");
 		opsi = toupper(getche()); 
@@ -335,6 +322,7 @@ void deleteMenu(){
 	// Merubah file copy menjadi original
 	remove("dataMenu.DAT");
 	rename("dataMenu_2.DAT", "dataMenu.DAT");
+
 }
 
 void update(){
@@ -342,6 +330,8 @@ void update(){
 	int line, count, i, pilihan;
 	char tempH[10];
 	char tempS[10];
+	char kode_kategori[6];
+	int T;
 	menu m1, m2;
 	FILE *f_menu1, *f_menu2; // kategori1 adalah file original dan kategori 2 adalah file copy nya
 	
@@ -398,6 +388,7 @@ void update(){
 			strcpy(m2.nMenu,m1.nMenu);
 			sprintf(tempH,"%d",m1.hMenu);
 			m2.hMenu = atoi(tempH);
+			
 			break;
 			
 		case 4 :
@@ -411,6 +402,15 @@ void update(){
 			printf("Input Stock : ");
 			scanf("%d",&m2.sMenu);
 			fflush(stdin);
+			
+			for(;;){
+				readKategori();
+				printf("\nMasukkan Kode Kategori : ");
+				scanf("%s", &kode_kategori);
+				m2.kategori = searchKategori(kode_kategori);
+				if(strcmp(m2.kategori.kode_kategori, kode_kategori )==0)
+				break;
+			}
 			break;
 		
 			
@@ -442,4 +442,28 @@ void update(){
 	fclose(f_menu2);
 	remove("dataMenu.DAT");
 	rename("dataMenu_2.DAT", "dataMenu.DAT");
+}
+
+void readKategori(){
+	//	Kamus data
+	Kategori dt;
+	FILE *f_kategori; 
+
+	if ((f_kategori=fopen("f_kategori.DAT", "rb"))==NULL)
+	{
+		printf ("File tidak dapat dibuka\n"); 
+		exit(1);
+	}
+	printf ("--------------------------------------\n");
+	printf ("|          Daftar Kategori           |\n");
+	printf ("--------------------------------------\n");
+	printf("|%-15s|%-20s|\n", "Kode Kategori" ,"Nama Kategori");
+	printf("--------------------------------------\n");
+	int line = 1; //baris file
+	while ((fread(&dt, sizeof(dt),line, f_kategori))==line)
+	{
+		printf("|%-15s|%-20s|\n", dt.kode_kategori, dt.nama_kategori);
+	}
+	printf ("--------------------------------------\n");
+	fclose(f_kategori);
 }

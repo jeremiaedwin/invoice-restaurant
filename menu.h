@@ -18,7 +18,7 @@ void addMenu();//append file menu, menambah isi menu tanpa menghapus data sebelu
 void deleteMenu();//menghapus 1 line file yang diinginkan user
 void viewMenu();//melihat isi file menu
 void update();// mengubah isi menu yang ada
-
+void readKategori();
 
 
 #endif
