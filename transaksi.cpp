@@ -44,7 +44,6 @@ void transaksiIndex(User dt){
 }
 
 void inputTransaksi(User dt){
-	system("cls");
 	
 	// pendefinisian kamus data
 	Pembayaran dt_pembayaran; 
@@ -62,37 +61,32 @@ void inputTransaksi(User dt){
 	// Menampilkan daftar menu
 	readMenu();
 	printf("\n\n");
-	
-	// proses input transaksi
-	
-	//input kode transaksi
 	printf("Masukkan Kode Transaksi: ");
 	fflush(stdin);
 	scanf("%s", dt_pembayaran.kode_transaksi);
 	fflush(stdin);
 	
+	strcpy(dt_pembayaran.kode_user, dt.user_id);	
+	time(&date_now);
 	//Input kode kasir yang menangani transaksi, data diambil dari siapa yang login	
 	strcpy(dt_pembayaran.kode_user, dt.user_id);
 	time(&date_now);
-	dt_pembayaran.tanggal_pembelian.tanggal = tm.tm_mday;
+
+	dt_pembayaran.tanggal_pembelian.tanggal = tm.tm_mday+1;
 	dt_pembayaran.tanggal_pembelian.bulan = tm.tm_mon+1;
-	dt_pembayaran.tanggal_pembelian.tahun = tm.tm_year+1900;
+	dt_pembayaran.tanggal_pembelian.tahun = tm.tm_year+1900+52;
 	
 	do{
-		//Input kode menu yang ingin di masukkan
 		fflush(stdin);
 		printf("Masukkan Kode Menu : ");
 		scanf("%s", kode_menu);
 		fflush(stdin);
+		dt_pembayaran.dt_menu[i] = searchMenu(kode_menu, dt);
 		
-		//Pencarian menu lewat kode menu
-		dt_pembayaran.m[i] = searchMenu(kode_menu,dt);
-		
-		//Input kuantitas yang mau dibeli
 		fflush(stdin);
 		printf("Masukkan kuantitas : ");
-		scanf("%d", &dt_pembayaran.m[i].qty);
-		kuantitas = dt_pembayaran.m[i].qty;
+		scanf("%d", &dt_pembayaran.dt_menu[i].qty);
+//		kuantitas = dt_pembayaran.m[i].qty;
 		fflush(stdin);
 		
 		fflush(stdin);
@@ -102,14 +96,12 @@ void inputTransaksi(User dt){
 		printf("\n");
 	}while((again=='Y'));
 	
-	//Hitung jumlah menu yang dibeli
 	dt_pembayaran.jMenu=i;
 	
-	//Modul untuk menghitung total harga yang harus dibayarkan
 	hitungHarga(dt_pembayaran, &totHarga,&sumHarga,i);		
 	
-	printf("Harga                     = %d \n", sumHarga);
-	printf("Total (Harga+PPn+Service) = %d", totHarga);
+	printf("Harga = %d \n", sumHarga);
+	printf("Total = %d", totHarga);
 	dt_pembayaran.total_harga = totHarga;
 	
 	//Input uang yang dimasukkan
@@ -123,8 +115,7 @@ void inputTransaksi(User dt){
 		dt_pembayaran.kembalian=0;
 	}
 	printf("\nUang kembalian : %d", dt_pembayaran.kembalian);
-	
-	//Proses tulis data ke file
+
 	if((f_transaksi=fopen("f_transaksi.DAT", "ab"))==NULL){
 			printf ("File tidak dapat dibuka\n"); 
 			exit(1);
@@ -132,7 +123,8 @@ void inputTransaksi(User dt){
 	fwrite(&dt_pembayaran, sizeof(dt_pembayaran), 1, f_transaksi);
 	fclose(f_transaksi);
 	printf("\nTransaksi berhasil dibuat\n");
-	return;
+	printf("\n");
+	
 }
 
 Keranjang searchMenu(char kode_menu[6],User dt){
@@ -182,7 +174,7 @@ void hitungHarga(Pembayaran dt, int *total,int *sum, int n){
 	
 	// Proses perhitungan jumlah harga per menu
 	for(j = 0; j<n; j++){
-		tmpHarga[j] = dt.m[j].qty*dt.m[j].hMenu;
+		tmpHarga[j] = dt.dt_menu[j].qty*dt.dt_menu[j].hMenu;
 		count = j;
 	}
 	
@@ -223,7 +215,7 @@ void viewTransaksi(){
 		printf("|%-10s|%-20s|%-12s|%-10s|\n", "Kode Menu" ,"Nama Menu", "Harga", "Kuantitas");
 		printf("---------------------------------------------------------\n");
 		do{
-			printf("|%-10s|%-20s|%-12d|%-10d|\n", dt_pembayaran.m[a].kMenu ,dt_pembayaran.m[a].nMenu, dt_pembayaran.m[a].hMenu,  dt_pembayaran.m[a].qty);
+			printf("|%-10s|%-20s|%-12d|%-10d|\n", dt_pembayaran.dt_menu[a].kMenu ,dt_pembayaran.dt_menu[a].nMenu, dt_pembayaran.dt_menu[a].hMenu,  dt_pembayaran.dt_menu[a].qty);
 		a++;
 		}while(a<dt_pembayaran.jMenu);
 		
@@ -248,7 +240,7 @@ void readMenu(){
 	while ((fread(&m, sizeof(m),1, f_menu))==1)
 	{
 		if(m.sMenu == 1){
-			printf("|%-10s|%-20s%-20s|%-12d|%-10d|\n", m.kMenu, m.nMenu, m.kategori.nama_kategori, m.hMenu, "Tersedia");
+			printf("|%-10s|%-20s%-20s|%-12d|%-10s|\n", m.kMenu, m.nMenu, m.kategori.nama_kategori, m.hMenu, "Tersedia");
 		}
 		
 	}

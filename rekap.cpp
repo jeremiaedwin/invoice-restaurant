@@ -42,8 +42,6 @@ void rekapHarian(){
 	int countTransaksi=0;
 	int tmpPemasukan=0;
 	int totPemasukan=0;	
-	int menuTerjual=0;
-	int	banyakBarang=0;
 	int tmpQty=0;
 	time_t t = time(NULL);
     struct tm tm = *localtime(&t);
@@ -63,15 +61,19 @@ void rekapHarian(){
 			countTransaksi++; 
 			tmpPemasukan = dt_pembayaran.total_harga;
 			totPemasukan = totPemasukan + tmpPemasukan;
-			i=0;
-			while(i<=dt_pembayaran.jMenu){
-				menuTerjual++;
-			}
 		}
 	}
 	fclose(f_transaksi);
 	printf("Jumlah Transaksi = %d\n", countTransaksi);
 	printf("Jumlah Pemasukan = Rp %d\n", totPemasukan);
+	
+	char exit;
+	printf("Keluar?");
+	scanf("%s", &exit);
+	toupper(exit);
+	if(exit=='Y'){
+		return;
+	}
 }
 
 void rekapBulanan(){
