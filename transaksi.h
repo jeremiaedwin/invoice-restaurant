@@ -36,6 +36,7 @@ void inputTransaksi(User dt);
 Keranjang searchMenu(char kodeMenu[6],User dt); //modul pencarian data menu
 void hitungHarga(Pembayaran dt, int *total, int *sum, int n); //modul perhitungan total harga
 void viewTransaksi(); //daftar transaksi
+bool validasiKode(char kodeTransaksi[6]);
 
 
 #endif

@@ -13,11 +13,11 @@ typedef struct{
 
 void indexLogin(User dt);
 void regist();
-void login(User *dt);
+int login(User *dt);
 void searchUser();
 void listUser();
-void deleteUser();
+void deleteUser(User dt);
 User input(User dt);
-
+void updateUser(User dt);
 
 #endif

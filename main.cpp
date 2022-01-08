@@ -19,12 +19,20 @@ Deskripsi 		: aplikasi untuk memudahkan kasir dalam pemesanan dan transaksi pela
 int main(){
 // Deklarasi variabel
 	int opsi;
+	int count;
 	User dt;
 //	regist();	
-	login(&dt);
 	
-	printf("\nLevel User :%d\n",dt.level);
-
+	
+for(;;){
+	system("CLS");
+	bool logout = false;
+	count = login(&dt);
+	if(count == 5){
+		system("CLS");
+		printf("Percobaan login melebihi batas!");
+		exit(1);
+	}
 	for(;;){
 		system("cls");
 		switch(dt.level){
@@ -34,7 +42,8 @@ int main(){
 				printf("\n1. Menu");
 				printf("\n2. Transaksi");
 				printf("\n3. Kategori ");
-				printf("\n4. Keluar");
+				printf("\n4. Logout");
+				printf("\n5. Keluar");
 				printf("\nPilih : ");
 				scanf("%d",&opsi);
 				switch(opsi){
@@ -47,8 +56,13 @@ int main(){
 					case 3 :
 						indexKategori(dt);
 						break;
-					default :
+					case 4 :
+						logout = true;
+						break;
+					case 5 :
 						return 0;
+					default :
+						break;
 				}
 				break;
 			case 2 :
@@ -58,7 +72,8 @@ int main(){
 				printf("\n2. Kategori");				
 				printf("\n3. Transaksi");
 				printf("\n4. Laporan");
-				printf("\n5. Keluar");
+				printf("\n5. Logout");
+				printf("\n6. Keluar");
 				printf("\nPilih : ");
 				scanf("%d",&opsi);
 				
@@ -75,8 +90,13 @@ int main(){
 					case 4 :
 						indexRekap();
 						break;
-					default :
+					case 5 :
+						logout = true;
+						break;
+					case 6 :
 						return 0;
+					default :
+						break;
 					}
 				break;
 			case 3 :
@@ -87,7 +107,8 @@ int main(){
 				printf("\n3. Laporan");
 				printf("\n4. Manajemen Akun");
 				printf("\n5. Kategori");
-				printf("\n6. Keluar");
+				printf("\n6. Logout");
+				printf("\n7. Keluar");
 				printf("\nPilih : ");
 				scanf("%d",&opsi);
 				switch(opsi){
@@ -106,13 +127,22 @@ int main(){
 					case 5 :
 						indexKategori(dt);
 						break;
-					default :
+					case 6 :
+						logout = true;
+						break;
+					case 7 :
 						return 0;
+					default :
+						break;
 				}
 				break;
 			default :
 				printf("Terjadi kesalahan!\nLevel akun tidak ada!");
 				exit(1);
 		}
+		if(logout){
+			break;
+		}
 	}
+}
 }

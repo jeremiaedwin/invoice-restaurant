@@ -16,7 +16,7 @@ void indexMenu(User dt);
 void createMenu();//write file menu, isi file sebelumnya akan hilang(bila file tidak ada akan dibuat)
 void addMenu();//append file menu, menambah isi menu tanpa menghapus data sebelumnya
 void deleteMenu();//menghapus 1 line file yang diinginkan user
-bool viewMenu();//melihat isi file menu
+void viewMenu();//melihat isi file menu
 void update();// mengubah isi menu yang ada
 void readKategori();
 

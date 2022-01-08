@@ -9,6 +9,7 @@
 
 void indexMenu(User dt){
 		
+	char confirm;	
 	int option;
 	for(;;){
 	
@@ -19,8 +20,15 @@ void indexMenu(User dt){
 				scanf("%d",&option);
 				switch(option){
 					case 1:
-						viewMenu();
-						break;			
+						for(;;){
+							system("cls");
+							viewMenu();
+							printf("\nKembali?(Y/T)");
+							confirm = toupper(getche());
+							if(confirm == 'Y'){
+								break;
+							}
+						}
 					default :
 						return;
 					}	
@@ -42,7 +50,15 @@ void indexMenu(User dt){
 						addMenu();
 						break;
 					case 3:
-						viewMenu();
+						for(;;){
+							system("cls");
+							viewMenu();
+							printf("\nKembali?(Y/T)");
+							confirm = toupper(getche());
+							if(confirm == 'Y'){
+								break;
+							}
+						}
 						break;	
 					case 4:
 						update();
@@ -72,7 +88,15 @@ void indexMenu(User dt){
 						addMenu();
 						break;
 					case 3:
-						viewMenu();
+						for(;;){
+							system("cls");
+							viewMenu();
+							printf("\nKembali?(Y/T)");
+							confirm = toupper(getche());
+							if(confirm == 'Y'){
+								break;
+							}
+						}
 						break;	
 					case 4:
 						update();
@@ -231,10 +255,10 @@ void addMenu(){
 	fclose(f_menu);
 }
 
-bool viewMenu(){
+void viewMenu(){
 	//deklarasi variabel
 	menu m;
-	bool pilihan = false;
+//	bool pilihan = false;
 	FILE *f_menu;
 	char opsi;
 	int line = 1;
@@ -252,43 +276,34 @@ bool viewMenu(){
 	
 	count = 1;
 	//Display file ke layar
-	printf("----------------------------------------------------------------------------------------\n");
-	printf("|%-10s|%-20s|%-20s|%-12s|%-20s|\n", "Kode Menu" ,"Nama Menu", "Kategori", "Harga", "Status");
-	printf("----------------------------------------------------------------------------------------\n");
+	printf("---------------------------------------------------------------------------------------------\n");
+	printf("|%-5s|%-10s|%-20s|%-20s|%-12s|%-20s|\n","No", "Kode Menu" ,"Nama Menu", "Kategori", "Harga", "Status");
+	printf("---------------------------------------------------------------------------------------------\n");
 	while ((fread(&m,sizeof(m),line,f_menu)) == line){
 		if(m.sMenu == 1){
-			printf("|%-10s|%-20s|%-20s|%-12d|%-20s|\n", m.kMenu, m.nMenu, m.kategori.nama_kategori, m.hMenu,"Tersedia");
+			printf("|%-5d|%-10s|%-20s|%-20s|%-12d|%-20s|\n",count, m.kMenu, m.nMenu, m.kategori.nama_kategori, m.hMenu,"Tersedia");
 		}else{
-			printf("|%-10s|%-20s|%-20s|%-12d|%-20s|\n", m.kMenu, m.nMenu, m.kategori.nama_kategori, m.hMenu,"Tidak Tersedia");
+			printf("|%-5d|%-10s|%-20s|%-20s|%-12d|%-20s|\n",count, m.kMenu, m.nMenu, m.kategori.nama_kategori, m.hMenu,"Tidak Tersedia");
 		}
 		
 		count++;
 	}
-	printf("----------------------------------------------------------------------------------------\n");
+	printf("----------------------------------------------------------------------------------------------\n");
 	fclose(f_menu);
-	for(;;){
-		printf("Lanjut?(Y/N)");
-		opsi = toupper(getche()); 
-		if(opsi == 'N'|| opsi == 'n'){
-			pilihan = true;
-			return pilihan;
-		}
-		break;
-		}
-	
-	return pilihan;
 
 }
 void deleteMenu(){
 	// deklarasi variabel
 	int line, count, i;
-	bool opsi;
+	char opsi;
 	menu m1, m2;
 	FILE *f_menu1, *f_menu2; // kategori1 adalah file original dan kategori 2 adalah file copy nya
 	
 	// input baris yang akan didelete
-	opsi = viewMenu();
-	if(opsi){
+	viewMenu();
+	printf("\nLanjut?(Y/T)");
+	opsi = toupper(getche());
+	if(opsi == 'T'){
 		return;
 	}
 	printf("\nMasukkan baris data mana yang akan di delete : ");
@@ -331,7 +346,7 @@ void deleteMenu(){
 void update(){
 	// deklarasi variabel
 	int line, count, i, pilihan;
-	bool opsi;
+	char opsi;
 	char tempH[10];
 	char tempS[10];
 	char kode_kategori[6];
@@ -339,11 +354,12 @@ void update(){
 	menu m1, m2;
 	FILE *f_menu1, *f_menu2; // kategori1 adalah file original dan kategori 2 adalah file copy nya
 	
-	opsi = viewMenu();
-	if(opsi){
+	viewMenu();
+	printf("\nLanjut?(Y/T)");
+	opsi = toupper(getche());
+	if(opsi == 'T'){
 		return;
 	}
-	// input baris yang akan diedit
 	printf("\nMasukkan baris data mana yang akan di update: ");
 	scanf("%d", &line);
 	
@@ -455,7 +471,6 @@ void update(){
 	fclose(f_menu2);
 	remove("dataMenu.DAT");
 	rename("dataMenu_2.DAT", "dataMenu.DAT");
-	return;
 }
 
 void readKategori(){
