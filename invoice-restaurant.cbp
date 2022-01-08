@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="invoice-restaurant" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="default">
+				<Option output="invoice-restaurant" prefix_auto="1" extension_auto="1" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+			</Target>
+		</Build>
+		<Unit filename="kategori.cpp" />
+		<Unit filename="kategori.h" />
+		<Unit filename="login.cpp" />
+		<Unit filename="login.h" />
+		<Unit filename="login.h.gch" />
+		<Unit filename="main.cpp" />
+		<Unit filename="menu.cpp" />
+		<Unit filename="menu.h" />
+		<Unit filename="rekap.cpp" />
+		<Unit filename="rekap.h" />
+		<Unit filename="transaksi.cpp" />
+		<Unit filename="transaksi.h" />
+		<Extensions />
+	</Project>
+</CodeBlocks_project_file>

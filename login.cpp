@@ -3,7 +3,7 @@ Judul : login.cpp
 Author : Panji Judha Fadhilla
 NIM : 211511053
 Sebuah modul yang fungsinya membuat user,delete user
-dan login.
+, Update User dan login.
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,7 +14,7 @@ dan login.
 #include "login.h"
 
 
-
+//Main page dari Manajemen User
 void indexLogin(User dt){
 	//Deklarasi variabel lokal
 	char confirm;
@@ -63,6 +63,7 @@ void indexLogin(User dt){
 	
 }
 
+//Prosedur buat User baru
 void regist(){
 
 //Deklarasi Variabel Lokal
@@ -105,6 +106,7 @@ void regist(){
 
 }
 
+//Prosedur login user
 int login(User *dt){
 	
 	char tempU[21];
@@ -142,11 +144,13 @@ int login(User *dt){
 	system("cls");
 	return count;
 }
+
+//function struct
 User input(User dt){
 	return dt;
 }
 
-
+//prosedur tampil data user
 void listUser(){
 
 	//deklarasi variabel
@@ -179,7 +183,7 @@ void listUser(){
 	
 	fclose(f_user);
 	}
-
+//prosedur delete user
 void deleteUser(User dt){
 	// deklarasi variabel
 	int line, count, i;
@@ -212,6 +216,7 @@ void deleteUser(User dt){
 		exit(1);
 	}
 	i = 1;
+	//validasi jika user yang di delete adalah user yang digunakan
 	while ((fread(&dt1, sizeof(dt1),i, f_user1)) == i){
 		count++;
 		if(count == line){
@@ -246,16 +251,18 @@ void deleteUser(User dt){
 void updateUser(User dt){
 	// deklarasi variabel
 	int line, count, i, pilihan;
-	bool used = false;
+	bool used = false;//penanda bila user yang di update adalah user yang digunakan
 	char opsi;
+	//variabel temporary
 	char tempU[21];
 	char tempP[9];
 	char tempN[31];
 	int tempL;
-	int T;
-	User dt1, dt2;
-	FILE *f_user1, *f_user2; // kategori1 adalah file original dan kategori 2 adalah file copy nya
 	
+	User dt1, dt2;
+	FILE *f_user1, *f_user2;
+	
+	//tampilkan semua user
 	listUser();
 	printf("\nLanjut?(Y/T)");
 	opsi = toupper(getche());
@@ -272,6 +279,7 @@ void updateUser(User dt){
 	}
 	i = 1;
 	count = 0;
+	//pengecekan bila user yang di update adalah user yang digunakan
 	while((fread(&dt1, sizeof(dt1),i, f_user1)) == i){
 		count++;
 		if(count == line){
@@ -361,8 +369,8 @@ void updateUser(User dt){
 	}
 	
 	strcpy(dt2.user_id,dt1.user_id);
-	
-	rewind(f_user1);
+
+	rewind(f_user1);// mengulangi stream file dari awal
 	//membuka file
 	if ((f_user2=fopen("dataUser_2.DAT", "ab"))==NULL)
 	{
@@ -387,6 +395,7 @@ void updateUser(User dt){
 	remove("dataUser.DAT");
 	rename("dataUser_2.DAT", "dataUser.DAT");
 
+	//bila user yang digunakan di update maka akan keluar dari aplikasi
 	if(used){
 		exit(1);
 	}

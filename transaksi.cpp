@@ -48,8 +48,8 @@ void inputTransaksi(User dt){
 	// pendefinisian kamus data
 	Pembayaran dt_pembayaran; 
 	Date tgl; 
-	time_t date_now; //Variabel library date
-	struct tm tm = *localtime(&date_now); //Struct library date
+	time_t t = time(NULL); //Variabel library date
+	struct tm tm = *localtime(&t); //Struct library date
 	FILE *f_transaksi; // Variabel file
 	int i=0;
 	char kode_menu[6];
@@ -76,14 +76,11 @@ void inputTransaksi(User dt){
 	}
 	
 	strcpy(dt_pembayaran.kode_user, dt.user_id);	
-	time(&date_now);
 	//Input kode kasir yang menangani transaksi, data diambil dari siapa yang login	
 	strcpy(dt_pembayaran.kode_user, dt.user_id);
-	time(&date_now);
-
-	dt_pembayaran.tanggal_pembelian.tanggal = tm.tm_mday+1;
+	dt_pembayaran.tanggal_pembelian.tanggal = tm.tm_mday;
 	dt_pembayaran.tanggal_pembelian.bulan = tm.tm_mon+1;
-	dt_pembayaran.tanggal_pembelian.tahun = tm.tm_year+1900+52;
+	dt_pembayaran.tanggal_pembelian.tahun = tm.tm_year+1900;
 	
 	do{
 		fflush(stdin);
@@ -284,7 +281,7 @@ bool validasiKode(char kodeTransaksi[6]){
 	Pembayaran dt_pembayaran;
 	FILE *f_transaksi;
 	bool find = false;
-	if((f_transaksi = fopen("f_transaksi.DAT", "rb"))==NULL){
+	if((f_transaksi = fopen("f_transaksi.DAT", "rb+"))==NULL){
 		printf("File gagal dibuka!");
 		exit(1);
 	}

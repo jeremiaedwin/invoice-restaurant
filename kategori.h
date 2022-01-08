@@ -10,10 +10,10 @@ typedef struct {
 } Kategori;
 
 
-void indexKategori(User dt); 
-void create(); 
-void read(); 
-void updateKategori();
-void destroy();
+void indexKategori(User dt); // menampilkan pilihan fitur yang ada di kategori
+void create(); // modul untuk menambah data kategori baru
+void read(); // modul untuk menampilkan data kategori
+void updateKategori(); // modul untuk melakukan update data kategori
+void destroy(); // modul untuk menghapus data kategori
 
 #endif

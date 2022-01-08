@@ -9,9 +9,9 @@ typedef struct{
 	int total_pemasukan;
 }Rekap;
 
-void indexRekap();
-void rekapHarian();
-void rekapBulanan();
-void rekapTahunan();
-void cariRekap();
+void indexRekap(); // menampilkan menu fitur yang ada di dalam rekap
+void rekapHarian(); // menampilkan rekapitulasi harian
+void rekapBulanan(); // menampilkan rekapitulasi bulanan
+void rekapTahunan(); // menampilkan rekapitulasi tahunan
+void cariRekap(); // menampilkan data rekap yang disimpan
 #endif
