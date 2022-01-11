@@ -31,11 +31,10 @@ typedef struct{
 }Pembayaran;
 
 void transaksiIndex(User dt); //menampilkan pilihan menu untuk transaksi
-void readMenu(); //void menampilkan menu ketika melakukan transaksi
 void inputTransaksi(User dt);
 Keranjang searchMenu(char kodeMenu[6],User dt); //modul pencarian data menu
 void hitungHarga(Pembayaran dt, int *total, int *sum, int n); //modul perhitungan total harga
-void viewTransaksi(); //daftar transaksi
+void viewTransaksi(User dt); //daftar transaksi
 bool validasiKode(char kodeTransaksi[6]);
 
 

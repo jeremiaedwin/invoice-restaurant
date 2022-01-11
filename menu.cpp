@@ -17,6 +17,8 @@ void indexMenu(User dt){
 			case 1 :
 				system("CLS");
 				printf("1. Display Menu\n");
+				printf("2. Kembali\n");
+				printf("Pilih (1-2) : ");
 				scanf("%d",&option);
 				switch(option){
 					case 1:
@@ -29,8 +31,11 @@ void indexMenu(User dt){
 								break;
 							}
 						}
-					default :
+						break;
+					case 2 :
 						return;
+					default :
+						break;
 					}	
 				break;
 			case 2 :
@@ -40,6 +45,7 @@ void indexMenu(User dt){
 				printf("3. Display Menu\n");
 				printf("4. Update Menu\n");
 				printf("5. Delete Menu\n");
+				printf("6. Kembali\n");
 				printf("Pilih : ");
 				scanf("%d",&option);
 				switch(option){
@@ -66,8 +72,10 @@ void indexMenu(User dt){
 					case 5:
 						deleteMenu();
 						break;
-					default :
+					case 6 :
 						return;
+					default :
+						break;
 			}
 				break;
 			
@@ -78,6 +86,7 @@ void indexMenu(User dt){
 				printf("3. Display Menu\n");
 				printf("4. Update Menu\n");
 				printf("5. Delete Menu\n");
+				printf("6. Kembali\n");
 				printf("Pilih : ");
 				scanf("%d",&option);
 				switch(option){
@@ -104,8 +113,9 @@ void indexMenu(User dt){
 					case 5:
 						deleteMenu();
 						break;
-					default :
+					case 6 :
 						return;
+					default :
 						break;
 				}
 			}

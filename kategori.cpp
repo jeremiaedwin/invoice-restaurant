@@ -44,7 +44,7 @@ void indexKategori(User dt){
 //			menu yang tersedia untuk user kasir
 			case 2 :
 				printf("1. Lihat daftar kategori\n");
-				printf("2. Cari Kategori\n");
+				printf("2. Buat Kategori\n");
 				printf("3. Kembali\n");
 				printf("\n\tPilih :");
 				scanf("%d",&pilih);

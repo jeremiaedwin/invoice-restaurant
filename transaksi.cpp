@@ -15,32 +15,66 @@ void transaksiIndex(User dt){
 	
 	system("cls");
 	int pilih = 0;
-	for(;;)
+	switch(dt.level)
 	{
-		printf("\tTransaksi\t\n");
-		printf(" 1. Masukkan Transaksi\n");
-		printf(" 2. Lihat daftar transaksi\n");
-		printf(" 3. Kembali\n");
-		printf("\n\t Pilihan : "); 
-		scanf("%d", &pilih); 
+		case 1:
+			printf("\tTransaksi\t\n");
+			printf(" 1. Masukkan Transaksi\n");
+			printf(" 2. Lihat daftar transaksi\n");
+			printf(" 3. Kembali\n");
+			printf("\n\t Pilihan : "); 
+			scanf("%d", &pilih); 
 		
-		switch(pilih)
-		{
-			case 1: 
+			switch(pilih)
 			{
-				inputTransaksi(dt);
-				break;
+				case 1: 
+					inputTransaksi(dt);
+					break;
+				case 2: 
+					viewTransaksi(dt);
+					break;	
+				default : 
+					return;		
 			}
-			case 2: 
-			{
-				viewTransaksi();
-				break;
-			}
+			break;
+		case 2:
+			printf("\tTransaksi\t\n");
+			printf(" 1. Lihat daftar transaksi\n");
+			printf(" 2. Kembali\n");
+			printf("\n\t Pilihan : "); 
+			scanf("%d", &pilih); 
 			
-			default : { return;}
-		}
+			switch(pilih)
+			{
+				case 1: 
+					viewTransaksi(dt);
+					break;
+				default : return;
+			}
+			break;
+		case 3:
+			printf("\tTransaksi\t\n");
+			printf(" 1. Masukkan Transaksi\n");
+			printf(" 2. Lihat daftar transaksi\n");
+			printf(" 3. Kembali\n");
+			printf("\n\t Pilihan : "); 
+			scanf("%d", &pilih); 
+			
+			switch(pilih)
+			{
+				case 1: 
+					inputTransaksi(dt);
+					break;
+				case 2: 
+					viewTransaksi(dt);
+					break;
+				
+				default : 
+					return;
+			}
+			break;
 	}
-	int n = 1;
+	
 }
 
 void inputTransaksi(User dt){
@@ -112,8 +146,8 @@ void inputTransaksi(User dt){
 	
 	hitungHarga(dt_pembayaran, &totHarga,&sumHarga,i);		
 	
-	printf("Harga = %d \n", sumHarga);
-	printf("Total = %d", totHarga);
+	printf("Harga                                = %d \n", sumHarga);
+	printf("Total (Harga Menu + Pajak + Service) = %d", totHarga);
 	dt_pembayaran.total_harga = totHarga;
 	
 	//Input uang yang dimasukkan
@@ -126,7 +160,7 @@ void inputTransaksi(User dt){
 	}else{
 		dt_pembayaran.kembalian=0;
 	}
-	printf("\nUang kembalian : %d\n", dt_pembayaran.kembalian);
+	printf("Uang kembalian : %d\n", dt_pembayaran.kembalian);
 	
 	printf("Konfirmasi Pembayaran (Y/N)?");
 	confirm = toupper(getche());
@@ -137,9 +171,9 @@ void inputTransaksi(User dt){
 		}
 		fwrite(&dt_pembayaran, sizeof(dt_pembayaran), 1, f_transaksi);
 		fclose(f_transaksi);
-		viewTransaksi();
+		viewTransaksi(dt);
 	}else{
-		printf("Ulangi Input (Y/N)");
+		printf("\nUlangi Input (Y/N)");
 		ulangInput = toupper(getche());
 		if(ulangInput == 'Y'){
 			inputTransaksi(dt);
@@ -218,7 +252,7 @@ void hitungHarga(Pembayaran dt, int *total,int *sum, int n){
 	*total = *sum+ppn+service;
 }
 
-void viewTransaksi(){
+void viewTransaksi(User dt){
 	system("cls");
 	Pembayaran dt_pembayaran;
 	FILE *f_transaksi;
@@ -252,30 +286,10 @@ void viewTransaksi(){
 		
 	}
 	fclose(f_transaksi);
+	printf("Kembali?");
+	char back = toupper(getche());
+	return;
 }
-
-//void readMenu(){
-//	menu m;
-//	FILE *f_menu;
-//	
-//	
-//	if((f_menu=fopen("dataMenu.DAT", "rb"))==NULL){
-//			printf ("File tidak dapat dibuka\n"); 
-//			exit(1);
-//		}
-//	printf("------------------------------------------------------------------------------\n");
-//	printf("|%-10s|%-20s|%-20s|%-12s|%-10s|\n", "Kode Menu" ,"Nama Menu", "Kategori", "Harga", "Status");
-//	printf("------------------------------------------------------------------------------\n");
-//	while ((fread(&m, sizeof(m),1, f_menu))==1)
-//	{
-//		if(m.sMenu == 1){
-//			printf("|%-10s|%-20s|%-20s|%-12d|%-10s|\n", m.kMenu, m.nMenu, m.kategori.nama_kategori, m.hMenu, "Tersedia");
-//		}
-//		
-//	}
-//	printf("------------------------------------------------------------------------------");
-//	fclose(f_menu);
-//}
 
 bool validasiKode(char kodeTransaksi[6]){
 	Pembayaran dt_pembayaran;

@@ -1,10 +1,13 @@
 #include<stdlib.h>
 #include<stdio.h>
 #include<time.h>
+#include <conio.h>
+#include <iostream>
 #include "rekap.h"
 #include<string.h>
 
 void indexRekap(){
+	system("cls");
 	int opsi;
 	
 	printf("1. Rekap Hari ini\n");
@@ -109,16 +112,15 @@ void rekapBulanan(){
 	printf("Jumlah Transaksi = %d\n", countTransaksi);
 	printf("Jumlah Pemasukan = Rp %d\n", totPemasukan);
 	
-	printf("Simpan Rekap ?");
-	scanf("%s", &isSave);
-	toupper(isSave);
-	if(isSave='Y'){
+	printf("Simpan Rekap (Y/N)?");
+	isSave = toupper(getche());
+	if(isSave=='Y'){
 		sprintf(nameFile, "%d-%d.DAT", tm.tm_mon+1, tm.tm_year+1900);
 		if((f_rekap=fopen(nameFile,"wb"))==NULL){
 			printf ("File tidak dapat dibuka\n"); 
 			exit(1);
 		}
-		strcpy(dt_rekap.kode_rekap, nameFile);
+		sprintf(dt_rekap.kode_rekap, "%d-%d",tm.tm_mon+1,tm.tm_year+1900);
 		dt_rekap.total_transaksi = countTransaksi;
 		dt_rekap.total_pemasukan = totPemasukan;
 		
@@ -165,10 +167,9 @@ void rekapTahunan(){
 	printf("Jumlah Transaksi = %d\n", countTransaksi);
 	printf("Jumlah Pemasukan = Rp %d\n", totPemasukan);
 	
-	printf("Simpan Rekap ?");
-	scanf("%s", &isSave);
-	toupper(isSave);
-	if(isSave='Y'){
+	printf("Simpan Rekap (Y/N)?");
+	isSave = toupper(getche());
+	if(isSave=='Y'){
 		sprintf(nameFile, "%d.DAT",tm.tm_year+1900);
 		if((f_rekap=fopen(nameFile,"wb"))==NULL){
 			printf ("File tidak dapat dibuka\n"); 
@@ -179,7 +180,7 @@ void rekapTahunan(){
 		dt_rekap.total_pemasukan = totPemasukan;
 		
 		fwrite(&dt_rekap, sizeof(dt_rekap), 1, f_rekap);
-		printf("Berhasil disimpan");
+		printf("Berhasil disimpan ");
 		fclose(f_transaksi);
 
 	}else{
@@ -206,7 +207,7 @@ void cariRekap(){
 	fclose(f_rekap);
 	
 	char keluar;
-	printf("\nKeluar (Y/N)? ");
+	printf("\nKeluar (Y)? ");
 	scanf("%s", &keluar);
 	toupper(keluar);
 	if(keluar=='Y'){

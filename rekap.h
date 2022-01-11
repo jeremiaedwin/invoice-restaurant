@@ -4,7 +4,7 @@
 #include "transaksi.h"
 
 typedef struct{
-	char kode_rekap[7];
+	char kode_rekap[15];
 	int total_transaksi;
 	int total_pemasukan;
 }Rekap;
